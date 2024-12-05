@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Default Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+<th:block th:replace="fragments/header :: header"></th:block>
+<div class="container">
+    <h1 th:text="${pageTitle}">Default Title</h1>
+    <div class="row">
+        <div class="col-md-4" th:each="comic : ${comics}">
+            <div class="card">
+                <img th:src="@{${comic.thumbnail}}" class="card-img-top" alt="Comic Thumbnail">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${comic.title}"></h5>
+                    <p class="card-text" th:text="${comic.description}"></p>
+                    <a th:href="@{/comics/{id}(id=${comic.id})}" class="btn btn-primary">Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:replace="fragments/footer :: footer"></th:block>
+</body>
+</html>
