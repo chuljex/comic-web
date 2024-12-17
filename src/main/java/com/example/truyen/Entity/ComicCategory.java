@@ -7,26 +7,16 @@ import jakarta.persistence.*;
 public class ComicCategory {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @ManyToOne
     @JoinColumn(name = "comic_id", nullable = false)
     private Comic comic;
 
+    @Id
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
     // Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Comic getComic() {
         return comic;
     }
