@@ -1,19 +1,43 @@
 package com.example.truyen.Entity;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, length = 50, unique = true)
     private String username;
-    private String email;
-    private String password;
+
+    @Column(name = "display_name", nullable = false, length = 50)
     private String displayName;
 
+    @Column(nullable = false, length = 100, unique = true)
+    private String email;
+
+    @Column(nullable = false, length = 255)
+    private String password;
+
+    @ManyToOne
+    @JoinColumn(name = "user_status_id", nullable = false)
+    private AccountStatus userStatus;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
+
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -28,6 +52,14 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     public String getEmail() {
@@ -46,11 +78,35 @@ public class User {
         this.password = password;
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public AccountStatus getUserStatus() {
+        return userStatus;
     }
 
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
+    public void setUserStatus(AccountStatus userStatus) {
+        this.userStatus = userStatus;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

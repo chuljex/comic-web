@@ -7,22 +7,23 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "chapters")
-public class Chapter {
+@Table(name = "comments")
+public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "comic_id", nullable = false)
-    private Comic comic;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    @Column(name = "chapter_number", nullable = false)
-    private Integer chapterNumber;
+    @ManyToOne
+    @JoinColumn(name = "chapter_id", nullable = false)
+    private Chapter chapter;
 
-    @Column(nullable = true, length = 255)
-    private String title;
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String content;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
@@ -41,28 +42,28 @@ public class Chapter {
         this.id = id;
     }
 
-    public Comic getComic() {
-        return comic;
+    public User getUser() {
+        return user;
     }
 
-    public void setComic(Comic comic) {
-        this.comic = comic;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Integer getChapterNumber() {
-        return chapterNumber;
+    public Chapter getChapter() {
+        return chapter;
     }
 
-    public void setChapterNumber(Integer chapterNumber) {
-        this.chapterNumber = chapterNumber;
+    public void setChapter(Chapter chapter) {
+        this.chapter = chapter;
     }
 
-    public String getTitle() {
-        return title;
+    public String getContent() {
+        return content;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public LocalDateTime getCreatedAt() {

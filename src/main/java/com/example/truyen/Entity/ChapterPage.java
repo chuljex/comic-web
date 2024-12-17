@@ -7,22 +7,22 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "chapters")
-public class Chapter {
+@Table(name = "chapter_pages")
+public class ChapterPage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "comic_id", nullable = false)
-    private Comic comic;
+    @JoinColumn(name = "chapter_id", nullable = false)
+    private Chapter chapter;
 
-    @Column(name = "chapter_number", nullable = false)
-    private Integer chapterNumber;
+    @Column(nullable = false)
+    private String link;
 
-    @Column(nullable = true, length = 255)
-    private String title;
+    @Column(name = "page_number", nullable = false)
+    private Integer pageNumber;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
@@ -41,28 +41,28 @@ public class Chapter {
         this.id = id;
     }
 
-    public Comic getComic() {
-        return comic;
+    public Chapter getChapter() {
+        return chapter;
     }
 
-    public void setComic(Comic comic) {
-        this.comic = comic;
+    public void setChapter(Chapter chapter) {
+        this.chapter = chapter;
     }
 
-    public Integer getChapterNumber() {
-        return chapterNumber;
+    public String getLink() {
+        return link;
     }
 
-    public void setChapterNumber(Integer chapterNumber) {
-        this.chapterNumber = chapterNumber;
+    public void setLink(String link) {
+        this.link = link;
     }
 
-    public String getTitle() {
-        return title;
+    public Integer getPageNumber() {
+        return pageNumber;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setPageNumber(Integer pageNumber) {
+        this.pageNumber = pageNumber;
     }
 
     public LocalDateTime getCreatedAt() {

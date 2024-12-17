@@ -1,7 +1,5 @@
 package com.example.truyen.Controller;
 
-import com.example.truyen.Entity.User;
-import com.example.truyen.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

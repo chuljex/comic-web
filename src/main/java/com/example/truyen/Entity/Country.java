@@ -7,22 +7,15 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "chapters")
-public class Chapter {
+@Table(name = "countries")
+public class Country {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "comic_id", nullable = false)
-    private Comic comic;
-
-    @Column(name = "chapter_number", nullable = false)
-    private Integer chapterNumber;
-
-    @Column(nullable = true, length = 255)
-    private String title;
+    @Column(nullable = false, length = 50, unique = true)
+    private String name;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
@@ -41,28 +34,12 @@ public class Chapter {
         this.id = id;
     }
 
-    public Comic getComic() {
-        return comic;
+    public String getName() {
+        return name;
     }
 
-    public void setComic(Comic comic) {
-        this.comic = comic;
-    }
-
-    public Integer getChapterNumber() {
-        return chapterNumber;
-    }
-
-    public void setChapterNumber(Integer chapterNumber) {
-        this.chapterNumber = chapterNumber;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public LocalDateTime getCreatedAt() {
