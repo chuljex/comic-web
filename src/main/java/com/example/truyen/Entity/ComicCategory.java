@@ -1,8 +1,14 @@
 package com.example.truyen.Entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
+@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "comic_category")
 public class ComicCategory {
 
@@ -16,20 +22,4 @@ public class ComicCategory {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-    // Getters and Setters
-    public Comic getComic() {
-        return comic;
-    }
-
-    public void setComic(Comic comic) {
-        this.comic = comic;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
 }

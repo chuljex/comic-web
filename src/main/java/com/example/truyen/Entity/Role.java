@@ -1,8 +1,14 @@
 package com.example.truyen.Entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
+@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "roles")
 public class Role {
 
@@ -13,19 +19,4 @@ public class Role {
     @Column(nullable = false, length = 25)
     private String name;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

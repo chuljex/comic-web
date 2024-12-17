@@ -1,8 +1,14 @@
 package com.example.truyen.Entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
+@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "account_status")
 public class AccountStatus {
 
@@ -16,28 +22,4 @@ public class AccountStatus {
     @Column(name = "restricted_level", nullable = false)
     private int restrictedLevel;
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public int getRestrictedLevel() {
-        return restrictedLevel;
-    }
-
-    public void setRestrictedLevel(int restrictedLevel) {
-        this.restrictedLevel = restrictedLevel;
-    }
 }
