@@ -42,8 +42,12 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable) // Disable CSRF for stateless APIs
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/auth/welcome", "/login", "/register").permitAll()
-                        .requestMatchers("/user/**").hasAuthority("ROLE_USER")
-                        .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/user/**")
+                            .hasAnyAuthority("ROLE_ADMIN", "ROLE_CONTRIBUTOR", "ROLE_USER")
+                        .requestMatchers("/contributor/**")
+                            .hasAnyAuthority("ROLE_ADMIN", "ROLE_CONTRIBUTOR")
+                        .requestMatchers("/admin/**")
+                            .hasAuthority("ROLE_ADMIN")
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .anyRequest().authenticated() // Protect all other endpoints
                 )
@@ -53,7 +57,7 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider()) // Custom authentication provider
                 .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .logoutSuccessUrl("/")
+                        .logoutSuccessUrl("/login")
                         .deleteCookies("token")
                         .invalidateHttpSession(true)
                         .clearAuthentication(true))

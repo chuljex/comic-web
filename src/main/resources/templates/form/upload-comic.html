@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng truyện</title>
+</head>
+<body>
+<h1>Đăng truyện</h1>
+<form th:action="@{/contributor/upload-comic}" th:object="${comicForm}" method="post">
+
+    <label for="title">Tiêu đề truyện:</label>
+    <input type="text" id="title" th:field="*{comic.title}" required><br>
+
+    <label for="author">Tác giả:</label>
+    <input type="text" id="author" th:field="*{comic.author}" required><br>
+
+    <label for="description">Giới thiệu:</label>
+    <textarea id="description" th:field="*{comic.description}" required><br></textarea><br>
+
+    <label for="thumbnail">Link ảnh bìa:</label>
+    <input type="text" id="thumbnail" th:field="*{comic.thumbnail}" required><br>
+
+    <label>Thể loại:</label>
+    <div th:each="category : ${categories}">
+        <input type="checkbox" th:field="*{selectedComicCategories}" th:value="${category.id}"> <span th:text="${category.name}"></span><br>
+    </div>
+
+    <label for="comicStatus">Trạng thái truyện:</label>
+    <select id="comicStatus" th:field="*{comic.comicStatus.id}">
+        <option th:each="status : ${comicStatus}" th:value="${status.id}" th:text="${status.title}"></option>
+    </select><br>
+    <label for="country">Quốc gia:</label>
+    <select id="country" th:field="*{comic.country.id}">
+        <option th:each="country : ${countries}" th:value="${country.id}" th:text="${country.name}"></option>
+    </select><br>
+    <button type="submit">Đăng truyện</button>
+</form>
+</body>
+</html>
