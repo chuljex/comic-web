@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${comic.title}">Truyện QQ</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+</head>
+<body class="detail light">
+<th:block th:replace="fragments/header :: header"></th:block>
+<div class="content">
+    <div class="div_middle">
+        <div class="alert-note-fix"></div>
+        <div class="main_content">
+            <div class="book_detail">
+                <ol class="breadcrumb" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+                    <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                        <a itemprop="item" href="/">
+                            <span itemprop="name">Trang Chủ</span>
+                        </a>
+                        <meta itemprop="position" content="1">
+                    </li>
+                    <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                        <a itemprop="item" th:href="@{/album/{id}}">
+                            <span itemprop="name" th:text="${comic.title}">Tên truyện</span>
+                        </a>
+                        <meta itemprop="position" content="2">
+                    </li>
+                </ol>
+                <div class="book_info">
+                    <div class="book_avatar" itemtype="https://schema.org/ImageObject">
+                        <img itemprop="image"
+                             th:alt="${comic.title}"
+                             th:src="${comic.thumbnail}">
+                    </div>
+                    <div class="book_other" itemscope="" itemtype="http://schema.org/Book">
+                        <h1 itemprop="name" th:text="${comic.title}">Tên truyện</h1>
+                        <div class="txt">
+                            <ul class="list-info">
+                                <li class="othername row">
+                                    <p class="name col-xs-3">
+                                        <i class="fa fa-plus"></i> Tên khác
+                                    </p>
+                                    <h2 class="other-name col-xs-9" th:text="${comic.title}">Tên khác</h2>
+                                </li>
+                                <li class="author row">
+                                    <p class="name col-xs-3">
+                                        <i class="fa fa-user"></i> Tác giả
+                                    </p>
+                                    <p class="col-xs-9" th:text="${comic.author}">Đang Cập Nhật</p>
+                                </li>
+                                <li class="status row">
+                                    <p class="name col-xs-3">
+                                        <i class="fa fa-rss"></i> Tình trạng
+                                    </p>
+                                    <p class="col-xs-9">Đang Cập Nhật</p>
+                                </li>
+                                <li class="row">
+                                    <p class="name col-xs-3">
+                                        <i class="fa fa-thumbs-up"></i> Lượt thích
+                                    </p>
+                                    <p class="col-xs-9 number-like">12</p>
+                                </li>
+                                <li class="row">
+                                    <p class="name col-xs-3">
+                                        <i class="fa fa-heart"></i> Lượt theo dõi
+                                    </p>
+                                    <p class="col-xs-9">127</p>
+                                </li>
+                                <li class="row">
+                                    <p class="name col-xs-3">
+                                        <i class="fa fa-eye"></i> Lượt xem
+                                    </p>
+                                    <p class="col-xs-9">15,633</p>
+                                </li>
+
+                            </ul>
+                        </div>
+
+                        <ul class="list01">
+                            <li class="li03"><a href="/the-loai/manhua-35.html">Manhua</a></li>
+                            <li class="li03"><a href="/the-loai/romance-36.html">Romance</a></li>
+                            <li class="li03"><a href="/the-loai/truyen-mau-92.html">Truyện Màu</a></li>
+                        </ul>
+                        <div class="clear"></div>
+                        <ul class="story-detail-menu">
+                            <li class="li01"><a href="/truyen-tranh/cua-lai-vo-yeu-16698-chap-1.html"
+                                                class="button is-danger is-rounded"><i class="fa fa-book"></i> Đọc từ
+                                đầu</a></li>
+                            <li class="li02"><a href="javascript:void(0);"
+                                                class="button is-danger is-rounded btn-subscribe subscribeBook"
+                                                data-page="index" data-id="16698"><span class="fa fa-heart"></span> Theo
+                                dõi</a></li>
+                            <li class="li03"><a href="javascript:void(0);" class="button is-danger is-rounded btn-like"
+                                                data-id="16698"><i class="fa fa-thumbs-up"></i> Thích</a></li>
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <h3><i class="fa fa-info-circle"></i> Giới thiệu</h3>
+                <div class="story-detail-info detail-content" th:text="${comic.description}">Mô tả</div>
+                <div id="ad_info" style="padding-top: 20px; max-width: 1200px; margin: 0 auto; overflow: hidden;">
+                </div>
+                <h3><i class="fa fa-database" aria-hidden="true"></i> Danh sách chương</h3>
+                <div class="list_chapter">
+                    <div class="works-chapter-list">
+                        <div class="works-chapter-item" th:each="chapter : ${chapters}">
+                            <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
+                                <a th:href="@{/comics/chapters/{id}(id=${chapter.id})}" th:text="${chapter.chapterNumber}">Chapter Title</a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap">
+                                <span th:text="${#dates.format(chapter.createdAt, 'dd/MM/yyyy')}">Ngày</span>
+                            </div>
+                        </div>
+
+                        <div class="works-chapter-item">
+                            <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
+                                <a target="_self" class="" href="/truyen-tranh/cua-lai-vo-yeu-16698-chap-24.html">Chương
+                                    24</a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap">
+                                18/12/2024
+                            </div>
+                        </div>
+                        <div class="works-chapter-item">
+                            <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
+                                <a target="_self" class="" href="/truyen-tranh/cua-lai-vo-yeu-16698-chap-23.html">Chương
+                                    23</a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap">
+                                17/12/2024
+                            </div>
+                        </div>
+                        <div class="works-chapter-item">
+                            <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
+                                <a target="_self" class="" href="/truyen-tranh/cua-lai-vo-yeu-16698-chap-22.html">Chương
+                                    22</a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap">
+                                12/12/2024
+                            </div>
+                        </div>
+                        <div class="works-chapter-item">
+                            <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
+                                <a target="_self" class="" href="/truyen-tranh/cua-lai-vo-yeu-16698-chap-21.html">Chương
+                                    21</a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap">
+                                11/12/2024
+                            </div>
+                        </div>
+                        <div class="works-chapter-item">
+                            <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
+                                <a target="_self" class="" href="/truyen-tranh/cua-lai-vo-yeu-16698-chap-20.html">Chương
+                                    20</a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap">
+                                11/12/2024
+                            </div>
+                        </div>
+                        <div class="works-chapter-item">
+                            <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
+                                <a target="_self" class="" href="/truyen-tranh/cua-lai-vo-yeu-16698-chap-19.html">Chương
+                                    19</a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap">
+                                09/12/2024
+                            </div>
+                        </div>
+                        <div class="works-chapter-item">
+                            <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
+                                <a target="_self" class="" href="/truyen-tranh/cua-lai-vo-yeu-16698-chap-18.html">Chương
+                                    18</a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap">
+                                04/12/2024
+                            </div>
+                        </div>
+                        <div class="works-chapter-item">
+                            <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
+                                <a target="_self" class="" href="/truyen-tranh/cua-lai-vo-yeu-16698-chap-17.html">Chương
+                                    17</a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap">
+                                29/11/2024
+                            </div>
+                        </div>
+                        <div class="works-chapter-item">
+                            <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
+                                <a target="_self" class="" href="/truyen-tranh/cua-lai-vo-yeu-16698-chap-16.html">Chương
+                                    16</a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap">
+                                29/11/2024
+                            </div>
+                        </div>
+                        <div class="works-chapter-item">
+                            <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
+                                <a target="_self" class="" href="/truyen-tranh/cua-lai-vo-yeu-16698-chap-15.html">Chương
+                                    15</a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap">
+                                29/11/2024
+                            </div>
+                        </div>
+                        <div class="works-chapter-item">
+                            <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
+                                <a target="_self" class="" href="/truyen-tranh/cua-lai-vo-yeu-16698-chap-14.html">Chương
+                                    14</a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap">
+                                29/11/2024
+                            </div>
+                        </div>
+                        <div class="works-chapter-item">
+                            <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
+                                <a target="_self" class="" href="/truyen-tranh/cua-lai-vo-yeu-16698-chap-13.html">Chương
+                                    13</a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap">
+                                29/11/2024
+                            </div>
+                        </div>
+                        <div class="works-chapter-item">
+                            <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
+                                <a target="_self" class="" href="/truyen-tranh/cua-lai-vo-yeu-16698-chap-12.html">Chương
+                                    12</a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap">
+                                29/11/2024
+                            </div>
+                        </div>
+                        <div class="works-chapter-item">
+                            <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
+                                <a target="_self" class="" href="/truyen-tranh/cua-lai-vo-yeu-16698-chap-11.html">Chương
+                                    11</a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap">
+                                29/11/2024
+                            </div>
+                        </div>
+                        <div class="works-chapter-item">
+                            <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
+                                <a target="_self" class="" href="/truyen-tranh/cua-lai-vo-yeu-16698-chap-10.html">Chương
+                                    10</a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap">
+                                29/11/2024
+                            </div>
+                        </div>
+                        <div class="works-chapter-item">
+                            <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
+                                <a target="_self" class="" href="/truyen-tranh/cua-lai-vo-yeu-16698-chap-9.html">Chương
+                                    9</a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap">
+                                29/11/2024
+                            </div>
+                        </div>
+                        <div class="works-chapter-item">
+                            <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
+                                <a target="_self" class="" href="/truyen-tranh/cua-lai-vo-yeu-16698-chap-8.html">Chương
+                                    8</a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap">
+                                29/11/2024
+                            </div>
+                        </div>
+                        <div class="works-chapter-item">
+                            <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
+                                <a target="_self" class="" href="/truyen-tranh/cua-lai-vo-yeu-16698-chap-7.html">Chương
+                                    7</a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap">
+                                29/11/2024
+                            </div>
+                        </div>
+                        <div class="works-chapter-item">
+                            <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
+                                <a target="_self" class="" href="/truyen-tranh/cua-lai-vo-yeu-16698-chap-6.html">Chương
+                                    6</a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap">
+                                29/11/2024
+                            </div>
+                        </div>
+                        <div class="works-chapter-item">
+                            <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
+                                <a target="_self" class="" href="/truyen-tranh/cua-lai-vo-yeu-16698-chap-5.html">Chương
+                                    5</a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap">
+                                29/11/2024
+                            </div>
+                        </div>
+                        <div class="works-chapter-item">
+                            <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
+                                <a target="_self" class="" href="/truyen-tranh/cua-lai-vo-yeu-16698-chap-4.html">Chương
+                                    4</a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap">
+                                29/11/2024
+                            </div>
+                        </div>
+                        <div class="works-chapter-item">
+                            <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
+                                <a target="_self" class="" href="/truyen-tranh/cua-lai-vo-yeu-16698-chap-3.html">Chương
+                                    3</a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap">
+                                29/11/2024
+                            </div>
+                        </div>
+                        <div class="works-chapter-item">
+                            <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
+                                <a target="_self" class="" href="/truyen-tranh/cua-lai-vo-yeu-16698-chap-2.html">Chương
+                                    2</a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap">
+                                29/11/2024
+                            </div>
+                        </div>
+                        <div class="works-chapter-item">
+                            <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
+                                <a target="_self" class="" href="/truyen-tranh/cua-lai-vo-yeu-16698-chap-1.html">Chương
+                                    1</a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap">
+                                29/11/2024
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<th:block th:replace="fragments/footer :: footer"></th:block>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

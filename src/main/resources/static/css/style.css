@@ -2941,7 +2941,8 @@ body.detail .content .main_content .book_detail .book_info .book_avatar {
 
 body.detail .content .main_content .book_detail .book_info .book_avatar img {
     height: 100%;
-    width: auto
+    width: 100%;
+    object-fit: cover;
 }
 
 body.detail .content .main_content .book_detail .book_info .book_other {
