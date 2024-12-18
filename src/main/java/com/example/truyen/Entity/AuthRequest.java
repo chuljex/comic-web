@@ -1,4 +1,4 @@
-package com.example.truyen.auth;
+package com.example.truyen.Entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

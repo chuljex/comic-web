@@ -1,8 +1,10 @@
-package com.example.truyen.auth.jwt;
+package com.example.truyen.Filter;
 
-import com.example.truyen.service.UserService;
+import com.example.truyen.Service.JwtService;
+import com.example.truyen.Service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +13,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
 @Component
-public class JwtAuthFilter extends OncePerRequestFilter {
+public class JwtAuthFilter extends OncePerRequestFilter{
     @Autowired
     private JwtService jwtService;
 
@@ -26,15 +29,26 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         // Retrieve the Authorization header
-        String authHeader = request.getHeader("Authorization");
+//        String authHeader = request.getHeader("Authorization");
         String token = null;
         String username = null;
 
-        // Check if the header starts with "Bearer "
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            token = authHeader.substring(7); // Extract token
-            username = jwtService.extractUsername(token); // Extract username from token
+        Cookie[] cookies = request.getCookies();
+        if(cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("token".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                    username = jwtService.extractUsername(token);
+                    break;
+                }
+            }
         }
+
+        // Check if the header starts with "Bearer "
+//        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+//            token = authHeader.substring(7); // Extract token
+//            username = jwtService.extractUsername(token); // Extract username from token
+//        }
 
         // If the token is valid and no authentication is set in the context
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
