@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
 
 @Service
 public class ComicService {
@@ -29,5 +30,9 @@ public class ComicService {
 
         comicRepository.save(comicInfo);
         return "Comic Added Successfully";
+    }
+
+    public List<Comic> getAllComics() {
+        return comicRepository.findAll();
     }
 }

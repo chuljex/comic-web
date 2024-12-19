@@ -29,11 +29,15 @@ public class ChapterService {
 
     public Chapter getChapterByComicIdAndId(Long comicId, Integer chapterId) {
         return chapterRepository.findByComicIdAndId(comicId, chapterId);
+
+    public void deleteChapterById(Long id) {
+        chapterRepository.deleteById(id);
     }
 
     public List<ChapterPage> getPagesByChapterId(Long chapterId) {
         return chapterPageRepository.findByChapterIdOrderByPageNumberAsc(chapterId);
     }
+
 
     public Chapter getPreviousChapter(Long comicId, Integer chapterId) {
         return chapterRepository.findTopByComicIdAndIdLessThanOrderByIdDesc(comicId, chapterId);
@@ -41,5 +45,9 @@ public class ChapterService {
 
     public Chapter getNextChapter(Long comicId, Integer chapterId) {
         return chapterRepository.findTopByComicIdAndIdGreaterThanOrderByIdAsc(comicId, chapterId);
+
+    public void saveChapter(Chapter chapter) {
+        chapterRepository.save(chapter);
+
     }
 }

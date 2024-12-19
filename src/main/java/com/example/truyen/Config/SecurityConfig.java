@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -43,12 +42,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/auth/welcome", "/login", "/register").permitAll()
                         .requestMatchers("/user/**")
-                            .hasAnyAuthority("ROLE_ADMIN", "ROLE_CONTRIBUTOR", "ROLE_USER")
+                        .hasAnyAuthority("ROLE_ADMIN", "ROLE_CONTRIBUTOR", "ROLE_USER")
                         .requestMatchers("/contributor/**")
-                            .hasAnyAuthority("ROLE_ADMIN", "ROLE_CONTRIBUTOR")
+                        .hasAnyAuthority("ROLE_ADMIN", "ROLE_CONTRIBUTOR")
                         .requestMatchers("/admin/**")
-                            .hasAuthority("ROLE_ADMIN")
+                        .hasAuthority("ROLE_ADMIN")
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                        .requestMatchers("/category/**").permitAll()
                         .anyRequest().authenticated() // Protect all other endpoints
                 )
                 .sessionManagement(sess -> sess

@@ -39,15 +39,15 @@
     </div>
     <div class="bottom">
         <div class="div_middle">
-            <ul id="header_left_menu" th:each="categories : ${categories}">
+            <ul id="header_left_menu">
                 <li class="menu_hidden">
                     <a class="tags_name pc_hover" href="/">
                         Trang chủ
                     </a>
                 </li>
-                <li class="menu_hidden">
-                    <a class="tags_name pc_hover" th:href="@{/categories/{id}(id=${categories.id})}"
-                       th:text="${categories.name}">
+                <li class="menu_hidden" th:each="category : ${category}">
+                    <a class="tags_name pc_hover" th:href="@{/category/{id}(id=${category.id})}"
+                       th:text="${category.name}">
                     </a>
                 </li>
 
@@ -159,7 +159,11 @@
             </ul>
             <div class="clear"></div>
         </div>
-        <div class="nav_menu mobile_display"><i onclick="show_bottom_menu(this)" class="fa fa-list"
-                                                aria-hidden="true"></i></div>
+        <div class="nav_menu mobile_display">
+            <i onclick="show_bottom_menu(this)"
+               class="fa fa-list"
+               aria-hidden="true">
+            </i>
+        </div>
     </div>
 </header>

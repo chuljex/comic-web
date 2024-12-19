@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng truyện tranh mới</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+</head>
+<body class="detail light">
+<th:block th:replace="fragments/header :: header"></th:block>
+<div class="content">
+    <div class="div_middle">
+        <div class="alert-note-fix"></div>
+        <div class="main_content">
+            <section class="main-content">
+                <div class="container">
+                    <div class="messages columns">
+                        <div class="column is-narrow col-md-3 col-sm-12">
+                            <th:block th:replace="fragments/nav-user :: nav-user"></th:block>
+                        </div>
+                        <div class="column columns col-md-9 col-sm-12">
+                            <div class="user-main column">
+                                <div class="level title">
+                                    <p class="level-left has-text-weight-bold">Đăng truyện tranh mới</p>
+                                </div>
+                                <form th:action="@{/contributor/upload-comic}" th:object="${comicForm}" method="post">
+                                    <div class="form-change-pass">
+                                        <div class="field">
+                                            <p class="txt">Tên truyện:</p>
+                                            <p class="control">
+                                                <input class="input" type="text" id="title" th:field="*{comic.title}"
+                                                       required>
+                                            </p>
+                                        </div>
+                                        <div class="field">
+                                            <p class="txt">Giới thiệu:</p>
+                                            <p class="control">
+                                                <textarea class="input" id="description" th:field="*{comic.description}"
+                                                          required style="height: 230px;"></textarea>
+                                            </p>
+                                        </div>
+                                        <div class="field">
+                                            <p class="txt">Link ảnh bìa:</p>
+                                            <p class="control">
+                                                <input class="input" type="text" id="thumbnail"
+                                                       th:field="*{comic.thumbnail}" required>
+                                            </p>
+                                        </div>
+                                        <div class="field">
+                                            <p class="txt">Thể loại:</p>
+                                            <div class="form-group">
+                                                <div th:each="category : ${categories}" class="genre-item">
+                                                    <input type="checkbox"
+                                                           th:field="*{selectedComicCategories}"
+                                                           th:value="${category.id}"> <span
+                                                        th:text="${category.name}"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="field">
+                                            <p class="txt">Thể loại:</p>
+                                            <p class="select">
+                                                <select id="comicStatus" th:field="*{comic.comicStatus.id}">
+                                                    <option th:each="status : ${comicStatus}" th:value="${status.id}"
+                                                            th:text="${status.title}"></option>
+                                                </select>
+                                            </p>
+                                        </div>
+                                        <div class="field">
+                                            <p class="txt">Quốc gia:</p>
+                                            <p class="select">
+                                                <select id="country" th:field="*{comic.country.id}">
+                                                    <option th:each="country : ${countries}" th:value="${country.id}" th:text="${country.name}"></option>
+                                                </select>
+                                            </p>
+                                        </div>
+                                        <div class="field">
+                                            <p class="control">
+                                                <button class="button is-danger" type="submit">Thêm</button>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<th:block th:replace="fragments/footer :: footer"></th:block>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>
