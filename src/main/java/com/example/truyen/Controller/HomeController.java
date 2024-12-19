@@ -39,8 +39,8 @@ public class HomeController {
     }
 
     private void getAllCategory(Model model) {
-        var categories = categoryService.getAllCategory();
-        model.addAttribute("categories", categories);
+        var category = categoryService.getAllCategory();
+        model.addAttribute("category", category);
     }
 
     private void listComics(Model model) {

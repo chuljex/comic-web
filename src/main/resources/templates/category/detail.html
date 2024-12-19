@@ -18,16 +18,14 @@
             <div id="main_homepage">
                 <div class="homepage_tags">
                     <h1>
-                        <p class="text_list_update">
-                            <i class="fa fa-font-awesome" aria-hidden="true"></i> Truyện
-                            Action
+                        <p class="text_list_update" th:text="${category.name}">
+                            <i class="fa fa-font-awesome" aria-hidden="true"></i>
                         </p>
                     </h1>
                     <div class="clear"></div>
                 </div>
                 <div class="tags_detail">
-                    Thể loại này thường có nội dung về đánh nhau, bạo lực, hỗn loạn,
-                    với diễn biến nhanh
+                    <p th:text="${category.description}"></p>
                 </div>
                 <div class="story-list-bl01 box">
                     <table>
