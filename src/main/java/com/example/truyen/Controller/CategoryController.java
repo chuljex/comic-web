@@ -12,17 +12,6 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-
-    @GetMapping("/category")
-    public String getAllCategory() {
-        try {
-            categoryService.getAllCategory();
-            return "category/index";
-        } catch (Exception e) {
-            return "error";
-        }
-    }
-
     @GetMapping("/category/detail")
     public String getCategoryDetail(Long id) {
         categoryService.getCategoryDetail(id);
