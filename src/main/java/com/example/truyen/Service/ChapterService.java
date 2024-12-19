@@ -27,6 +27,10 @@ public class ChapterService {
         return chapters;
     }
 
+    public void deleteChapterById(Long id) {
+        chapterRepository.deleteById(id);
+    }
+
     public Chapter getChapterByComicIdAndChapterNumber(Long comicId, Integer chapterNumber) {
         return chapterRepository.findByComicIdAndChapterNumber(comicId, chapterNumber);
     }
@@ -36,10 +40,16 @@ public class ChapterService {
     }
 
     public Chapter getPreviousChapter(Long comicId, Integer chapterNumber) {
-        return chapterRepository.findTopByComicIdAndChapterNumberLessThanOrderByChapterNumberDesc(comicId, chapterNumber);
+        return chapterRepository.findTopByComicIdAndChapterNumberLessThanOrderByChapterNumberDesc(comicId,
+                chapterNumber);
     }
 
     public Chapter getNextChapter(Long comicId, Integer chapterNumber) {
-        return chapterRepository.findTopByComicIdAndChapterNumberGreaterThanOrderByChapterNumberAsc(comicId, chapterNumber);
+        return chapterRepository.findTopByComicIdAndChapterNumberGreaterThanOrderByChapterNumberAsc(comicId,
+                chapterNumber);
+    }
+
+    public void saveChapter(Chapter chapter) {
+        chapterRepository.save(chapter);
     }
 }
