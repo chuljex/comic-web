@@ -27,19 +27,19 @@ public class ChapterService {
         return chapters;
     }
 
-    public Chapter getChapterByComicIdAndChapterNumber(Long comicId, Integer chapterNumber) {
-        return chapterRepository.findByComicIdAndChapterNumber(comicId, chapterNumber);
+    public Chapter getChapterByComicIdAndId(Long comicId, Integer chapterId) {
+        return chapterRepository.findByComicIdAndId(comicId, chapterId);
     }
 
     public List<ChapterPage> getPagesByChapterId(Long chapterId) {
         return chapterPageRepository.findByChapterIdOrderByPageNumberAsc(chapterId);
     }
 
-    public Chapter getPreviousChapter(Long comicId, Integer chapterNumber) {
-        return chapterRepository.findTopByComicIdAndChapterNumberLessThanOrderByChapterNumberDesc(comicId, chapterNumber);
+    public Chapter getPreviousChapter(Long comicId, Integer chapterId) {
+        return chapterRepository.findTopByComicIdAndIdLessThanOrderByIdDesc(comicId, chapterId);
     }
 
-    public Chapter getNextChapter(Long comicId, Integer chapterNumber) {
-        return chapterRepository.findTopByComicIdAndChapterNumberGreaterThanOrderByChapterNumberAsc(comicId, chapterNumber);
+    public Chapter getNextChapter(Long comicId, Integer chapterId) {
+        return chapterRepository.findTopByComicIdAndIdGreaterThanOrderByIdAsc(comicId, chapterId);
     }
 }

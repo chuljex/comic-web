@@ -55,6 +55,13 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // No sessions
                 )
                 .authenticationProvider(authenticationProvider()) // Custom authentication provider
+                .formLogin(form -> form
+                                .loginPage("/login")
+                                .loginProcessingUrl("/perform_login")
+                                .defaultSuccessUrl("/", true)
+                                .failureUrl("/login?error=true")
+                                .permitAll()
+                        )
                 .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                         .logoutSuccessUrl("/login")

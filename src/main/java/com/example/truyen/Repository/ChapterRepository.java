@@ -14,7 +14,7 @@ public interface ChapterRepository extends JpaRepository<Chapter, Long> {
     Chapter findTopByComicOrderByCreatedAtDesc(Comic comic);
     Optional<Chapter> findById(Long id);
     List<Chapter> findByComicIdOrderByCreatedAtDesc(Long comicId);
-    Chapter findByComicIdAndChapterNumber(Long comicId, Integer chapterNumber);
-    Chapter findTopByComicIdAndChapterNumberLessThanOrderByChapterNumberDesc(Long comicId, Integer chapterNumber);
-    Chapter findTopByComicIdAndChapterNumberGreaterThanOrderByChapterNumberAsc(Long comicId, Integer chapterNumber);
+    Chapter findByComicIdAndId(Long comicId, Integer chapterId);
+    Chapter findTopByComicIdAndIdLessThanOrderByIdDesc(Long comicId, Integer chapterId);
+    Chapter findTopByComicIdAndIdGreaterThanOrderByIdAsc(Long comicId, Integer chapterId);
 }
