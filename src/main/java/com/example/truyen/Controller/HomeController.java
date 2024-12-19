@@ -5,8 +5,8 @@ import com.example.truyen.Entity.Chapter;
 import com.example.truyen.Entity.Comic;
 import com.example.truyen.Repository.ChapterRepository;
 import com.example.truyen.Repository.ComicRepository;
-import com.example.truyen.Utility.TimeAgo;
 import com.example.truyen.Service.CategoryService;
+import com.example.truyen.Utility.TimeAgo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,8 +31,19 @@ public class HomeController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("/")
-    public String listComics(Model model) {
+    @GetMapping
+    public String HomePage(Model model) {
+        getAllCategory(model);
+        listComics(model);
+        return "home/index";
+    }
+
+    private void getAllCategory(Model model) {
+        var categories = categoryService.getAllCategory();
+        model.addAttribute("categories", categories);
+    }
+
+    private void listComics(Model model) {
         // 1. Lấy 10 comics có lượt xem trên 10,000 và sắp xếp theo lượt xem giảm dần
         List<Comic> comicsByViews = comicRepository.findByViewsGreaterThanOrderByViewsDesc(10000);
         // Giới hạn danh sách lấy chỉ 10 comic
@@ -78,14 +89,5 @@ public class HomeController {
         model.addAttribute("latestChapters", latestChapters);
         model.addAttribute("timeAgoMap", timeAgoMap);
 
-        return "home/index"; // Tên template
-
-    }
-
-    @GetMapping
-    public String home(Model model) {
-        var categories = categoryService.getAllCategory();
-        model.addAttribute("categories", categories);
-        return "home/index"; // Trả về template home/index.html
     }
 }
