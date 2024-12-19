@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách truyện</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+</head>
+<body class="detail light">
+<th:block th:replace="fragments/header :: header"></th:block>
+<div class="content">
+    <div class="div_middle">
+        <div class="alert-note-fix"></div>
+        <div class="main_content">
+            <section class="main-content">
+                <div class="container">
+                    <div class="messages columns">
+                        <div class="column is-narrow col-md-3 col-sm-12">
+                            <th:block th:replace="fragments/nav-user :: nav-user"></th:block>
+                        </div>
+                        <div class="column columns col-md-9 col-sm-12">
+                            <div class="user-main column">
+                                <div class="level title">
+                                    <p class="level-left has-text-weight-bold">Danh sách truyện</p>
+                                </div>
+                                <div class="comic-list">
+                                    <div class="comic-item" th:each="comic : ${comics}">
+                                        <div class="comic-card">
+                                            <img th:src="${comic.thumbnail}" class="comic-thumbnail" alt="Comic Thumbnail">
+                                            <div class="comic-content">
+                                                <h3 class="comic-title" th:text="${comic.title}"></h3>
+                                                <p class="comic-description" th:text="${#strings.abbreviate(comic.description, 30)}"></p>
+                                                <div class="comic-info">
+                                                    <span class="comic-author" th:text="'Tác giả: ' + ${comic.author}"></span>
+                                                </div>
+                                                <a th:href="@{/comics/{id}(id=${comic.id})}" class="comic-btn">Chỉnh sửa chương</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<th:block th:replace="fragments/footer :: footer"></th:block>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

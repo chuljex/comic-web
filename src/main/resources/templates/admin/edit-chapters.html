@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sửa chương truyện</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+</head>
+<body class="detail light">
+<th:block th:replace="fragments/header :: header"></th:block>
+<div class="content">
+    <div class="div_middle">
+        <div class="alert-note-fix"></div>
+        <div class="main_content">
+            <section class="main-content">
+                <div class="container">
+                    <div class="messages columns">
+                        <div class="column is-narrow col-md-3 col-sm-12">
+                            <th:block th:replace="fragments/nav-user :: nav-user"></th:block>
+                        </div>
+                        <div class="column columns col-md-9 col-sm-12">
+                            <div class="user-main column">
+                                <div class="level title">
+                                    <p class="level-left has-text-weight-bold">Chỉnh Sửa Chương Truyện</p>
+                                </div>
+                                <div class="chapter-management">
+                                    <h2 th:text="'Truyện: ' + ${comic.title}"></h2>
+                                    <!-- Nút Thêm Chương -->
+                                    <div class="actions">
+                                        <a th:href="@{/contributor/comic/add/{comicId}(comicId=${comic.id})}" class="btn-add">Thêm Chương</a>
+                                    </div>
+                                    <!-- Danh sách các chương -->
+                                    <table class="chapter-table">
+                                        <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Tên Chương</th>
+                                            <th>Ngày Tạo</th>
+                                            <th>Hành Động</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="chapter, stat : ${chapters}">
+                                            <td th:text="${stat.index + 1}"></td>
+                                            <td>
+                                                <a th:href="@{/chapter/images/{chapterId}(chapterId=${chapter.id})}"
+                                                   th:text="'Chương ' + ${chapter.chapterNumber} + ': ' + ${chapter.title}">
+                                                </a>
+                                            </td>
+                                            <td th:text="${chapter.createdAt.format(T(java.time.format.DateTimeFormatter).ofPattern('dd/MM/yyyy'))}"></td>
+                                            <td>
+                                                <!-- Nút Xóa -->
+                                                <form th:action="@{/chapter/delete/{id}(id=${chapter.id})}" method="post" onsubmit="return confirm('Bạn có chắc chắn muốn xóa chương này?');">
+                                                    <button type="submit" class="btn-delete">Xóa</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<th:block th:replace="fragments/footer :: footer"></th:block>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

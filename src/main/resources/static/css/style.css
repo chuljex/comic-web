@@ -4349,3 +4349,118 @@ button.close {
 	font-size:5px;
 	color:#fff;
 }
+.comic-list {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+.comic-item {
+    margin-bottom: 20px;
+}
+.comic-card {
+    display: flex;
+    align-items: flex-start;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    background-color: #fff;
+    padding: 10px;
+}
+.comic-thumbnail {
+    width: 100px;
+    height: 150px;
+    object-fit: cover;
+    margin-right: 15px;
+    border-radius: 5px;
+}
+.comic-content {
+    flex: 1;
+}
+.comic-title {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+.comic-description {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+.comic-info {
+    font-size: 0.85rem;
+    color: #777;
+    margin-bottom: 15px;
+    display: flex;
+    gap: 20px;
+}
+.comic-btn {
+    display: inline-block;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 0.2s;
+}
+.comic-btn:hover {
+    background-color: #0056b3;
+}
+.chapter-management {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+}
+.actions {
+    text-align: center;
+    margin: 20px 0;
+}
+.btn-add {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+}
+.btn-add:hover {
+    background-color: #218838;
+}
+.chapter-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.chapter-table th,
+.chapter-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+.chapter-table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+.chapter-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+.btn-delete {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+}
+.btn-delete:hover {
+    background-color: #c82333;
+}

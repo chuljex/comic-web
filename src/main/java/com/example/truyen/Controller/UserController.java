@@ -1,9 +1,7 @@
 package com.example.truyen.Controller;
 
 import com.example.truyen.DTO.ComicFormDto;
-import com.example.truyen.Entity.Comic;
-import com.example.truyen.Entity.ComicStatus;
-import com.example.truyen.Entity.Country;
+import com.example.truyen.Entity.*;
 import com.example.truyen.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,6 +19,12 @@ import java.util.List;
 public class UserController {
     @Autowired
     private ComicService comicService;
+
+    @Autowired
+    private ChapterService chapterService;
+
+    @Autowired
+    private ChapterPageService chapterPageService;
 
     @Autowired
     private ComicCategoryService comicCategoryService;
@@ -55,7 +59,7 @@ public class UserController {
         model.addAttribute("categories", categoryService.getAllCategory());
         model.addAttribute("countries", countryService.getAllCountry());
         model.addAttribute("comicStatus", comicStatusService.getAllComicStatus());
-        return "form/upload-comic";
+        return "admin/upload-comic";
     }
 
     @PostMapping("/contributor/upload-comic")
@@ -68,8 +72,70 @@ public class UserController {
 
     @GetMapping("/admin/adminProfile")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @ResponseBody
     public String adminProfile() {
-        return "Welcome to Admin Profile";
+        return "admin/index";
+    }
+
+    @GetMapping("/contributor/comic")
+    public String listComics(Model model) {
+        List<Comic> comics = comicService.getAllComics();
+        model.addAttribute("comics", comics);
+        return "admin/list-comic";
+    }
+
+    @GetMapping("/contributor/comic/edit/{comicId}")
+    public String editChapters(@PathVariable Long comicId, Model model) {
+        Comic comic = comicService.getComicById(comicId);
+        List<Chapter> chapters = chapterService.getChaptersByComicId(comicId);
+        model.addAttribute("comic", comic);
+        model.addAttribute("chapters", chapters);
+        return "admin/edit-chapters";
+    }
+
+    @PostMapping("/contributor/comic/delete/{comicId}/chapter-id-{id}")
+    public String deleteChapter(@PathVariable Long id) {
+        chapterService.deleteChapterById(id);
+        return "redirect:/contributor/comic/edit/{comicId}";
+    }
+
+    @GetMapping("/contributor/comic/add/{comicId}")
+    public String addChapter(@PathVariable Long comicId, Model model) {
+        Comic comic = comicService.getComicById(comicId);
+        model.addAttribute("comic", comic);
+        return "admin/add-chapter";
+    }
+
+    @PostMapping("/contributor/comic/add/save")
+    public String saveChapter(
+            @RequestParam Long comicId,
+            @RequestParam Integer chapterNumber,
+            @RequestParam String title,
+            @RequestParam String imageLinks) {
+        // Tìm truyện bằng comicId
+        Comic comic = comicService.getComicById(comicId);
+
+        // Tạo chương mới
+        Chapter newChapter = new Chapter();
+        newChapter.setComic(comic);
+        newChapter.setChapterNumber(chapterNumber);
+        newChapter.setTitle(title);
+        chapterService.saveChapter(newChapter);
+
+        // Tách danh sách URL từ textarea
+        String[] urls = imageLinks.split("\\r?\\n");
+
+        // Lưu từng URL vào ChapterPage
+        int pageNumber = 1;
+        for (String url : urls) {
+            if (!url.trim().isEmpty()) { // Bỏ qua dòng trống
+                ChapterPage chapterPage = new ChapterPage();
+                chapterPage.setChapter(newChapter);
+                chapterPage.setPageNumber(pageNumber++);
+                chapterPage.setLink(url.trim());
+                chapterPageService.saveChapterPage(chapterPage);
+            }
+        }
+
+        return "redirect:/contributor/comic/edit/" + comicId; // Quay lại trang chỉnh sửa chương
     }
 }
