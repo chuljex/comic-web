@@ -29,6 +29,7 @@ public class ChapterService {
 
     public Chapter getChapterByComicIdAndId(Long comicId, Integer chapterId) {
         return chapterRepository.findByComicIdAndId(comicId, chapterId);
+    }
 
     public void deleteChapterById(Long id) {
         chapterRepository.deleteById(id);
@@ -45,6 +46,7 @@ public class ChapterService {
 
     public Chapter getNextChapter(Long comicId, Integer chapterId) {
         return chapterRepository.findTopByComicIdAndIdGreaterThanOrderByIdAsc(comicId, chapterId);
+    }
 
     public void saveChapter(Chapter chapter) {
         chapterRepository.save(chapter);
