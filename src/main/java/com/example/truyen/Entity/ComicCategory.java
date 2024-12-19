@@ -10,11 +10,13 @@ import lombok.*;
 @Table(name = "comic_category")
 public class ComicCategory {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @ManyToOne
     @JoinColumn(name = "comic_id", nullable = false)
     private Comic comic;
 
-    @Id
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;

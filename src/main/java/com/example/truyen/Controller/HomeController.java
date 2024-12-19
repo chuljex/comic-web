@@ -6,10 +6,12 @@ import com.example.truyen.Entity.Comic;
 import com.example.truyen.Repository.ChapterRepository;
 import com.example.truyen.Repository.ComicRepository;
 import com.example.truyen.Utility.TimeAgo;
+import com.example.truyen.Service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,12 +20,16 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
+@RequestMapping("/")
 public class HomeController {
     @Autowired
     private ComicRepository comicRepository;
 
     @Autowired
     private ChapterRepository chapterRepository;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @GetMapping("/")
     public String listComics(Model model) {
@@ -32,7 +38,8 @@ public class HomeController {
         // Giới hạn danh sách lấy chỉ 10 comic
         List<Comic> topComics = comicsByViews.stream().limit(10).collect(Collectors.toList());
 
-        // 2. Lấy 24 comics đã có chapter mới nhất, sắp xếp theo thời gian chapter mới nhất
+        // 2. Lấy 24 comics đã có chapter mới nhất, sắp xếp theo thời gian chapter mới
+        // nhất
         List<Comic> comicsWithLatestChapters = comicRepository.findAll(); // Lấy tất cả comics
         Map<Long, Chapter> latestChapters = new HashMap<>();
         Map<Long, List<Category>> comicCategories = new HashMap<>();
@@ -72,5 +79,13 @@ public class HomeController {
         model.addAttribute("timeAgoMap", timeAgoMap);
 
         return "home/index"; // Tên template
+
+    }
+
+    @GetMapping
+    public String home(Model model) {
+        var categories = categoryService.getAllCategory();
+        model.addAttribute("categories", categories);
+        return "home/index"; // Trả về template home/index.html
     }
 }

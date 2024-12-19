@@ -10,5 +10,6 @@ import java.util.Optional;
 @Repository
 public interface ComicRepository extends JpaRepository<Comic, Long> {
     List<Comic> findByViewsGreaterThanOrderByViewsDesc(int views);
+
     Optional<Comic> findById(Long id);
 }
