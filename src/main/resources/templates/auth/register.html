@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng ký</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+</head>
+<body class="detail light">
+<th:block th:replace="fragments/header :: header"></th:block>
+<div class="content">
+    <div class="div_middle">
+        <div class="alert-note-fix"></div>
+        <div class="main_content">
+            <section class="main-content">
+                <div class="container">
+                    <div class="messages columns">
+                        <div class="column is-narrow col-md-3 col-sm-12">
+                            <th:block th:replace="fragments/nav-auth :: nav-auth"></th:block>
+                        </div>
+                        <div class="column columns col-md-9 col-sm-12">
+                            <div class="user-main column">
+                                <div class="level title">
+                                    <p class="level-left has-text-weight-bold">Đăng ký tài khoản</p>
+                                </div>
+                                <form action="#" th:action="@{/register}" th:object="${user}" method="post">
+                                    <div class="form-change-pass">
+                                        <div class="field">
+                                            <p class="txt">Tên người dùng:</p>
+                                            <p class="control">
+                                                <input class="input" type="text" id="username" th:field="*{username}" required>
+                                            </p>
+                                        </div>
+                                        <div class="field">
+                                            <p class="txt">Email:</p>
+                                            <p class="control">
+                                                <input class="input" type="email" id="email" th:field="*{email}" required>
+                                            </p>
+                                        </div>
+                                        <div class="field">
+                                            <p class="txt">Mật khẩu:</p>
+                                            <p class="control">
+                                                <input class="input" type="password" id="password" th:field="*{password}" required>
+                                            </p>
+                                        </div>
+                                        <div class="field">
+                                            <p class="txt">Tên hiển thị:</p>
+                                            <p class="control">
+                                                <input class="input" type="text" id="displayName" th:field="*{displayName}" required>
+                                            </p>
+                                        </div>
+                                        <div class="field">
+                                            <p class="control">
+                                                <button class="button is-danger" type="submit">Đăng ký</button>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<th:block th:replace="fragments/footer :: footer"></th:block>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

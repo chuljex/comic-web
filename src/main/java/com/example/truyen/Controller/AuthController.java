@@ -31,13 +31,13 @@ public class AuthController {
     @GetMapping("/login")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new AuthRequest());
-        return "form/login";
+        return "auth/login";
     }
 
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
         model.addAttribute("user", new User());
-        return "form/register";
+        return "auth/register";
     }
 
     @GetMapping("/auth/welcome")
