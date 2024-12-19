@@ -14,6 +14,9 @@ public class ChapterService {
     @Autowired
     private ChapterRepository chapterRepository;
 
+    @Autowired
+    private ChapterPageRepository chapterPageRepository;
+
     public Chapter getChapterById(Long id) {
         return chapterRepository.findById(id).orElse(null);
     }
@@ -22,5 +25,13 @@ public class ChapterService {
         // Lấy danh sách các chương từ ComicRepository và sắp xếp theo ngày tạo giảm dần
         List<Chapter> chapters = chapterRepository.findByComicIdOrderByCreatedAtDesc(comicId);
         return chapters;
+    }
+
+    public Chapter getChapterByComicIdAndChapterNumber(Long comicId, Integer chapterNumber) {
+        return chapterRepository.findByComicIdAndChapterNumber(comicId, chapterNumber);
+    }
+
+    public List<ChapterPage> getPagesByChapterId(Long chapterId) {
+        return chapterPageRepository.findByChapterIdOrderByPageNumberAsc(chapterId);
     }
 }
