@@ -2,7 +2,7 @@
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Truyện QQ</title>
+    <title th:text="${chapter.comic.title} + ' - Chương ' + ${chapter.chapterNumber}">Truyện QQ</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
 </head>
@@ -11,54 +11,17 @@
 <div class="content">
     <div class="div_middle">
         <div class="main_content">
-            <div id="top-banner-reading-container">
-                <div class="banner text-center" style="margin-bottom: 10px;">
-                    <div><a class="ads-banner banner-desktop" rel="nofollow" id="hitclub-top-18" target="_blank"
-                            href="https://hit.club/?a=d66ba3dda345ae2dce02b4093c0ea0b9&amp;utm_source=truyenqqvietcom&amp;utm_medium=topbanner1&amp;utm_campaign=cpd&amp;utm_term=truyen"><img
-                            class="ads-banner" src="https://mplmncb.com/banners-web/_hit-728x90_12_12_2024_14_21_28.gif"
-                            style="width: auto; max-width: 100%; height: auto;"></a></div>
-                    <div><a class="ads-banner banner-desktop" rel="nofollow" id="net88-top-19" target="_blank"
-                            href="https://net88.onl/?a=ab101c13854658b109cd1e818e9ab723&amp;utm_campaign=cpd&amp;utm_source=truyenqqvietcom&amp;utm_medium=topbanner2&amp;utm_term=truyen"><img
-                            class="ads-banner"
-                            src="https://mplmncb.com/banners-web/_net88-728x90_12_12_2024_14_23_50.gif"
-                            style="width: auto; max-width: 100%; height: auto;"></a></div>
-                </div>
-            </div>
             <div id="chapter_content">
                 <div class="chapter_content_div chapter_new_load">
                     <div class="box">
-                        <div id="path" class="path-top">
-                            <ol class="breadcrumb" itemscope="" itemtype="http://schema.org/BreadcrumbList">
-                                <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                                    <a itemprop="item" href="https://truyenqqto.com/">
-                                        <span itemprop="name">Trang Chủ</span>
-                                    </a>
-                                    <meta itemprop="position" content="1">
-                                </li>
-                                <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                                    <a itemprop="item"
-                                       href="https://truyenqqto.com/truyen-tranh/do-de-cua-ta-deu-la-dai-phan-phai-13414">
-                                        <span itemprop="name">Đồ Đệ Của Ta Đều Là Đại Phản Phái</span>
-                                    </a>
-                                    <meta itemprop="position" content="2">
-                                </li>
-                                <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                                    <a itemprop="item"
-                                       href="https://truyenqqto.com/truyen-tranh/do-de-cua-ta-deu-la-dai-phan-phai-13414-chap-319.html">
-                                        <span itemprop="name">Chương 319</span>
-                                    </a>
-                                    <meta itemprop="position" content="3">
-                                </li>
-                            </ol>
-                        </div>
                         <div>
-                            <h1 class="detail-title txt-primary"><a
-                                    href="/truyen-tranh/do-de-cua-ta-deu-la-dai-phan-phai-13414">Đồ Đệ Của Ta Đều Là Đại
-                                Phản Phái</a> -
-                                Chapter 319</h1>
-                            <time datetime="2024-12-18T08:23:08+07:00">(Cập nhật
-                                lúc: 17:23 18/12/2024)
-                            </time>
+                            <h1 class="detail-title txt-primary">
+                                <a th:href="@{/album/{comicId}(comicId=${chapter.comic.id})}"
+                                   th:text="${chapter.comic.title}"></a> - Chương <span
+                                    th:text="${chapter.chapterNumber}"></span>
+                            </h1>
+                            <time th:datetime="${chapter.updatedAt}"
+                                  th:text="'(Cập nhật lúc: ' + ${chapter.updatedAt.format(T(java.time.format.DateTimeFormatter).ofPattern('HH:mm dd/MM/yyyy'))} + ')'"></time>
                         </div>
                         <div class="chapter-control">
                             <div class="alert alert-info mrt10">
@@ -67,11 +30,19 @@
                             </div>
 
                             <div class="d-flex align-items-center justify-content-center">
-                                <a th:href="@{/album/{comicId}/chapter-{chapterNumber}(comicId=${chapter.comic.id}, chapterNumber=${prevChapter.chapterNumber})}"
-                                   th:class="'btn btn-info go-btn prev text-white m-1 ' + (${prevChapter == null} ? 'd-none' : 'd-block')"><em
+                                <a th:if="${hasPrevChapter}"
+                                   th:href="@{/album/{comicId}/chapter-{chapterNumber}(comicId=${chapter.comic.id}, chapterNumber=${prevChapter.chapterNumber})}"
+                                   th:class="'btn btn-info go-btn prev text-white m-1 d-block'"><em
                                         class="fa fa-arrow-left"></em> Chap trước</a>
-                                <a th:href="@{/album/{comicId}/chapter-{chapterNumber}(comicId=${chapter.comic.id}, chapterNumber=${nextChapter.chapterNumber})}"
-                                   th:class="'btn btn-info go-btn prev text-white m-1 ' + (${nextChapter == null} ? 'd-none' : 'd-block')">Chap sau <em
+                                <a th:if="${!hasPrevChapter}" th:onclick="'alert(\'Hết Chương Rồi Bạn Ơi!!!\')'"
+                                   th:class="'btn btn-info go-btn prev text-white m-1 d-none'"><em
+                                        class="fa fa-arrow-left"></em> Chap trước</a>
+                                <a th:if="${hasNextChapter}"
+                                   th:href="@{/album/{comicId}/chapter-{chapterNumber}(comicId=${chapter.comic.id}, chapterNumber=${nextChapter.chapterNumber})}"
+                                   th:class="'btn btn-info go-btn next text-white m-1 d-block'">Chap sau <em
+                                        class="fa fa-arrow-right"></em></a>
+                                <a th:if="${!hasNextChapter}" th:onclick="'alert(\'Hết Chương Rồi Bạn Ơi!!!\')'"
+                                   th:class="'btn btn-info go-btn next text-white m-1 d-none'">Chap sau <em
                                         class="fa fa-arrow-right"></em></a>
                             </div>
                         </div>
@@ -104,43 +75,22 @@
                     <div class="box bottom-chap">
                         <div class="chapter-control" style="z-index: 9999">
                             <div class="d-flex align-items-center justify-content-center">
-                                <a class="btn btn-info go-btn prev text-white m-1 d-block"
-                                   href="/truyen-tranh/do-de-cua-ta-deu-la-dai-phan-phai-13414-chap-318.html"><em
+                                <a th:if="${hasPrevChapter}"
+                                   th:href="@{/album/{comicId}/chapter-{chapterNumber}(comicId=${chapter.comic.id}, chapterNumber=${prevChapter.chapterNumber})}"
+                                   th:class="'btn btn-info go-btn prev text-white m-1 d-block'"><em
                                         class="fa fa-arrow-left"></em> Chap trước</a>
-                                <a class="btn btn-info go-btn next text-white m-1 d-none"
-                                   onclick="alert('Hết Chương Rồi Bạn Ơi!!!')">Chap sau <em
+                                <a th:if="${!hasPrevChapter}" th:onclick="'alert(\'Hết Chương Rồi Bạn Ơi!!!\')'"
+                                   th:class="'btn btn-info go-btn prev text-white m-1 d-none'"><em
+                                        class="fa fa-arrow-left"></em> Chap trước</a>
+                                <a th:if="${hasNextChapter}"
+                                   th:href="@{/album/{comicId}/chapter-{chapterNumber}(comicId=${chapter.comic.id}, chapterNumber=${nextChapter.chapterNumber})}"
+                                   th:class="'btn btn-info go-btn next text-white m-1 d-block'">Chap sau <em
+                                        class="fa fa-arrow-right"></em></a>
+                                <a th:if="${!hasNextChapter}" th:onclick="'alert(\'Hết Chương Rồi Bạn Ơi!!!\')'"
+                                   th:class="'btn btn-info go-btn next text-white m-1 d-none'">Chap sau <em
                                         class="fa fa-arrow-right"></em></a>
                             </div>
-                            <div class="d-flex align-items-center justify-content-center">
-                                <a class="ads-banner" rel="nofollow" id="red-button" target="_blank"
-                                   href="https://red88.com/?a=e6a27eaafde4432d69b25be973e93b46&amp;utm_source=truyenqqvietcom&amp;utm_medium=buttoncuoc&amp;utm_campaign=cpd&amp;utm_term=truyen">
-                                    <img class="ads-banner" src="https://mplmncb.com/banners-web/red-button.gif"
-                                         style="width: auto; max-width: 50%; height: 40px; margin-top: 10px">
-                                </a>
-                            </div>
                         </div>
-                        <ol class="breadcrumb" itemscope="" itemtype="http://schema.org/BreadcrumbList">
-                            <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                                <a itemprop="item" href="https://truyenqqto.com/">
-                                    <span itemprop="name">Trang Chủ</span>
-                                </a>
-                                <meta itemprop="position" content="1">
-                            </li>
-                            <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                                <a itemprop="item"
-                                   href="https://truyenqqto.com/truyen-tranh/do-de-cua-ta-deu-la-dai-phan-phai-13414">
-                                    <span itemprop="name">Đồ Đệ Của Ta Đều Là Đại Phản Phái</span>
-                                </a>
-                                <meta itemprop="position" content="2">
-                            </li>
-                            <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                                <a itemprop="item"
-                                   href="https://truyenqqto.com/truyen-tranh/do-de-cua-ta-deu-la-dai-phan-phai-13414-chap-319.html">
-                                    <span itemprop="name">Chương 319</span>
-                                </a>
-                                <meta itemprop="position" content="3">
-                            </li>
-                        </ol>
                     </div>
                 </div>
             </div>

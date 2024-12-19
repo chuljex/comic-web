@@ -13,20 +13,6 @@
         <div class="alert-note-fix"></div>
         <div class="main_content">
             <div class="book_detail">
-                <ol class="breadcrumb" itemscope="" itemtype="http://schema.org/BreadcrumbList">
-                    <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                        <a itemprop="item" href="/">
-                            <span itemprop="name">Trang Chủ</span>
-                        </a>
-                        <meta itemprop="position" content="1">
-                    </li>
-                    <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                        <a itemprop="item" th:href="@{/album/{id}}">
-                            <span itemprop="name" th:text="${comic.title}">Tên truyện</span>
-                        </a>
-                        <meta itemprop="position" content="2">
-                    </li>
-                </ol>
                 <div class="book_info">
                     <div class="book_avatar" itemtype="https://schema.org/ImageObject">
                         <img itemprop="image"
@@ -84,9 +70,12 @@
                         </ul>
                         <div class="clear"></div>
                         <ul class="story-detail-menu">
-                            <li class="li01"><a href="/truyen-tranh/cua-lai-vo-yeu-16698-chap-1.html"
-                                                class="button is-danger is-rounded"><i class="fa fa-book"></i> Đọc từ
-                                đầu</a></li>
+                            <li class="li01">
+                                <a th:if="${firstChapter != null}"
+                                   th:href="@{/album/{comicId}/chapter-{chapterNumber}(comicId=${firstChapter.comic.id}, chapterNumber=${firstChapter.chapterNumber})}"><i
+                                        class="fa fa-book"></i> Đọc từ
+                                    đầu</a>
+                            </li>
                             <li class="li02"><a href="javascript:void(0);"
                                                 class="button is-danger is-rounded btn-subscribe subscribeBook"
                                                 data-page="index" data-id="16698"><span class="fa fa-heart"></span> Theo
@@ -106,9 +95,11 @@
                     <div class="works-chapter-list">
                         <div class="works-chapter-item" th:each="chapter : ${chapters}">
                             <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
-                                <a th:href="@{/comics/chapters/{id}(id=${chapter.id})}" th:text="'Chương ' + ${chapter.chapterNumber}">Chapter Title</a>
+                                <a th:href="@{/album/${comic.id}/chaper-{id}(id=${chapter.id})}"
+                                   th:text="'Chương ' + ${chapter.chapterNumber}">Chapter Title</a>
                             </div>
-                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap" th:text="${chapter.createdAt.format(T(java.time.format.DateTimeFormatter).ofPattern('dd/MM/yyyy'))}">
+                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap"
+                                 th:text="${chapter.createdAt.format(T(java.time.format.DateTimeFormatter).ofPattern('dd/MM/yyyy'))}">
                                 Ngày
                             </div>
                         </div>
