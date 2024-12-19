@@ -4,6 +4,28 @@ $(document).ready(function () {
         setInterval(function(){ scroll_div('right') }, 5000);
         $('#div_suggest .scroll').show();
     }
+    var device = 0;
+    if(device == 0){
+            $(".qtip").hover(function () {
+                var e = $($(this).data("qtip"));
+                if (!e.length) return !1;
+                $('<div id="info_tip"></div>').html(e.html()).appendTo("body").fadeIn("300")
+            }, function () {
+                $("#info_tip").remove()
+            }).mousemove(function (e) {
+                var t = e.pageX + 20, i = e.pageY + 10;
+                var width = $(document).width()/2;
+                var height = $(window).height()/2;
+
+                if(e.pageX > width && width < $(document).width()){
+                    t = t - $("#info_tip").width() - 50;
+                }
+                if(e.clientY > height && height < $(window).height()){
+                    i = i - $("#info_tip").height() - 40;
+                }
+                $("#info_tip").css({top: i, left: t});
+            })
+        }
 });
 div_suggest_margin = 0;
 function scroll_div(target){

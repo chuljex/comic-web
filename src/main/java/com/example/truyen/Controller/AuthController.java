@@ -74,18 +74,4 @@ public class AuthController {
             throw new UsernameNotFoundException("Invalid user request!");
         }
     }
-
-    @GetMapping("/user/userProfile")
-    @PreAuthorize("hasAuthority('ROLE_USER')")
-    @ResponseBody
-    public String userProfile() {
-        return "Welcome to User Profile";
-    }
-
-    @GetMapping("/admin/adminProfile")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @ResponseBody
-    public String adminProfile() {
-        return "Welcome to Admin Profile";
-    }
 }
