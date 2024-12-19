@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${comic.title}">Truyện QQ</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+</head>
+<body class="detail light">
+<th:block th:replace="fragments/header :: header"></th:block>
+<div class="content">
+    <div class="div_middle">
+        <div class="alert-note-fix"></div>
+        <div class="main_content">
+            <div class="book_detail">
+                <div class="book_info">
+                    <div class="book_avatar" itemtype="https://schema.org/ImageObject">
+                        <img itemprop="image"
+                             th:alt="${comic.title}"
+                             th:src="${comic.thumbnail}">
+                    </div>
+                    <div class="book_other" itemscope="" itemtype="http://schema.org/Book">
+                        <h1 itemprop="name" th:text="${comic.title}">Tên truyện</h1>
+                        <div class="txt">
+                            <ul class="list-info">
+                                <li class="othername row">
+                                    <p class="name col-xs-3">
+                                        <i class="fa fa-plus"></i> Tên khác
+                                    </p>
+                                    <h2 class="other-name col-xs-9" th:text="${comic.title}">Tên khác</h2>
+                                </li>
+                                <li class="author row">
+                                    <p class="name col-xs-3">
+                                        <i class="fa fa-user"></i> Tác giả
+                                    </p>
+                                    <p class="col-xs-9" th:text="${comic.author}">Đang Cập Nhật</p>
+                                </li>
+                                <li class="status row">
+                                    <p class="name col-xs-3">
+                                        <i class="fa fa-rss"></i> Tình trạng
+                                    </p>
+                                    <p class="col-xs-9">Đang Cập Nhật</p>
+                                </li>
+                                <li class="row">
+                                    <p class="name col-xs-3">
+                                        <i class="fa fa-thumbs-up"></i> Lượt thích
+                                    </p>
+                                    <p class="col-xs-9 number-like">12</p>
+                                </li>
+                                <li class="row">
+                                    <p class="name col-xs-3">
+                                        <i class="fa fa-heart"></i> Lượt theo dõi
+                                    </p>
+                                    <p class="col-xs-9">127</p>
+                                </li>
+                                <li class="row">
+                                    <p class="name col-xs-3">
+                                        <i class="fa fa-eye"></i> Lượt xem
+                                    </p>
+                                    <p class="col-xs-9">15,633</p>
+                                </li>
+
+                            </ul>
+                        </div>
+
+                        <ul class="list01">
+                            <li class="li03"><a href="/the-loai/manhua-35.html">Manhua</a></li>
+                            <li class="li03"><a href="/the-loai/romance-36.html">Romance</a></li>
+                            <li class="li03"><a href="/the-loai/truyen-mau-92.html">Truyện Màu</a></li>
+                        </ul>
+                        <div class="clear"></div>
+                        <ul class="story-detail-menu">
+                            <li class="li01">
+                                <a th:if="${firstChapter != null}"
+                                   th:href="@{/album/{comicId}/chapter-{chapterNumber}(comicId=${firstChapter.comic.id}, chapterNumber=${firstChapter.chapterNumber})}"><i
+                                        class="fa fa-book"></i> Đọc từ
+                                    đầu</a>
+                            </li>
+                            <li class="li02"><a href="javascript:void(0);"
+                                                class="button is-danger is-rounded btn-subscribe subscribeBook"
+                                                data-page="index" data-id="16698"><span class="fa fa-heart"></span> Theo
+                                dõi</a></li>
+                            <li class="li03"><a href="javascript:void(0);" class="button is-danger is-rounded btn-like"
+                                                data-id="16698"><i class="fa fa-thumbs-up"></i> Thích</a></li>
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <h3><i class="fa fa-info-circle"></i> Giới thiệu</h3>
+                <div class="story-detail-info detail-content" th:text="${comic.description}">Mô tả</div>
+                <div id="ad_info" style="padding-top: 20px; max-width: 1200px; margin: 0 auto; overflow: hidden;">
+                </div>
+                <h3><i class="fa fa-database" aria-hidden="true"></i> Danh sách chương</h3>
+                <div class="list_chapter">
+                    <div class="works-chapter-list">
+                        <div class="works-chapter-item" th:each="chapter : ${chapters}">
+                            <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
+                                <a th:href="@{/album/${comic.id}/chaper-{id}(id=${chapter.id})}"
+                                   th:text="'Chương ' + ${chapter.chapterNumber}">Chapter Title</a>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-4 time-chap"
+                                 th:text="${chapter.createdAt.format(T(java.time.format.DateTimeFormatter).ofPattern('dd/MM/yyyy'))}">
+                                Ngày
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<th:block th:replace="fragments/footer :: footer"></th:block>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${chapter.comic.title} + ' - Chương ' + ${chapter.chapterNumber}">Truyện QQ</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+</head>
+<body class="detail light">
+<th:block th:replace="fragments/header :: header"></th:block>
+<div class="content">
+    <div class="div_middle">
+        <div class="main_content">
+            <div id="chapter_content">
+                <div class="chapter_content_div chapter_new_load">
+                    <div class="box">
+                        <div>
+                            <h1 class="detail-title txt-primary">
+                                <a th:href="@{/album/{comicId}(comicId=${chapter.comic.id})}"
+                                   th:text="${chapter.comic.title}"></a> - Chương <span
+                                    th:text="${chapter.chapterNumber}"></span>
+                            </h1>
+                            <time th:datetime="${chapter.updatedAt}"
+                                  th:text="'(Cập nhật lúc: ' + ${chapter.updatedAt.format(T(java.time.format.DateTimeFormatter).ofPattern('HH:mm dd/MM/yyyy'))} + ')'"></time>
+                        </div>
+                        <div class="chapter-control">
+                            <div class="alert alert-info mrt10">
+                                <i class="fa fa-info-circle"></i> <em>Sử dụng mũi tên trái (←) hoặc phải (→) để chuyển
+                                chapter</em>
+                            </div>
+
+                            <div class="d-flex align-items-center justify-content-center">
+                                <a th:if="${hasPrevChapter}"
+                                   th:href="@{/album/{comicId}/chapter-{chapterNumber}(comicId=${chapter.comic.id}, chapterNumber=${prevChapter.chapterNumber})}"
+                                   th:class="'btn btn-info go-btn prev text-white m-1 d-block'"><em
+                                        class="fa fa-arrow-left"></em> Chap trước</a>
+                                <a th:if="${!hasPrevChapter}" th:onclick="'alert(\'Hết Chương Rồi Bạn Ơi!!!\')'"
+                                   th:class="'btn btn-info go-btn prev text-white m-1 d-none'"><em
+                                        class="fa fa-arrow-left"></em> Chap trước</a>
+                                <a th:if="${hasNextChapter}"
+                                   th:href="@{/album/{comicId}/chapter-{chapterNumber}(comicId=${chapter.comic.id}, chapterNumber=${nextChapter.chapterNumber})}"
+                                   th:class="'btn btn-info go-btn next text-white m-1 d-block'">Chap sau <em
+                                        class="fa fa-arrow-right"></em></a>
+                                <a th:if="${!hasNextChapter}" th:onclick="'alert(\'Hết Chương Rồi Bạn Ơi!!!\')'"
+                                   th:class="'btn btn-info go-btn next text-white m-1 d-none'">Chap sau <em
+                                        class="fa fa-arrow-right"></em></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chapter_content">
+                        <div style="overflow: hidden;">
+                            <div th:each="page : ${pages}" class="page-chapter">
+                                <img th:src="${page.link}" th:alt="'Page ' + ${page.pageNumber}"/>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="chapter_control" style="z-index: 9999">
+                            <a href="/" class="home"><i class="fa fa-home" aria-hidden="true"></i></a>
+                            <a onclick="" class="home changeserver"><i class="fa fa-undo error"></i><span>1</span>
+                            </a><a class="prev control-button link-prev-chap"
+                                   href="/truyen-tranh/do-de-cua-ta-deu-la-dai-phan-phai-13414-chap-318.html"
+                                   title="Đồ Đệ Của Ta Đều Là Đại Phản Phái Chap 318"><i class="fa fa-chevron-left"></i></a>
+                            <span class="chapter_list spanList"
+                                  onclick="popupList(319); return false;">Chương 319</span> <a
+                                class="next disable control-button" onclick="alert('Hết Chương Rồi Bạn Ơi!!!')"><i
+                                class="fa fa-chevron-right"></i></a>
+                            <a href="javascript:void(0);"
+                               class="button is-danger is-rounded btn-subscribe subscribeBook" data-id="13414"
+                               data-page="detail"><i class="fa fa-heart"></i> <span>Theo dõi</span></a>
+
+                        </div>
+                    </div>
+
+                    <div class="clear"></div>
+                    <div class="box bottom-chap">
+                        <div class="chapter-control" style="z-index: 9999">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <a th:if="${hasPrevChapter}"
+                                   th:href="@{/album/{comicId}/chapter-{chapterNumber}(comicId=${chapter.comic.id}, chapterNumber=${prevChapter.chapterNumber})}"
+                                   th:class="'btn btn-info go-btn prev text-white m-1 d-block'"><em
+                                        class="fa fa-arrow-left"></em> Chap trước</a>
+                                <a th:if="${!hasPrevChapter}" th:onclick="'alert(\'Hết Chương Rồi Bạn Ơi!!!\')'"
+                                   th:class="'btn btn-info go-btn prev text-white m-1 d-none'"><em
+                                        class="fa fa-arrow-left"></em> Chap trước</a>
+                                <a th:if="${hasNextChapter}"
+                                   th:href="@{/album/{comicId}/chapter-{chapterNumber}(comicId=${chapter.comic.id}, chapterNumber=${nextChapter.chapterNumber})}"
+                                   th:class="'btn btn-info go-btn next text-white m-1 d-block'">Chap sau <em
+                                        class="fa fa-arrow-right"></em></a>
+                                <a th:if="${!hasNextChapter}" th:onclick="'alert(\'Hết Chương Rồi Bạn Ơi!!!\')'"
+                                   th:class="'btn btn-info go-btn next text-white m-1 d-none'">Chap sau <em
+                                        class="fa fa-arrow-right"></em></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<th:block th:replace="fragments/footer :: footer"></th:block>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>
