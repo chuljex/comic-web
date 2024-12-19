@@ -34,4 +34,12 @@ public class ChapterService {
     public List<ChapterPage> getPagesByChapterId(Long chapterId) {
         return chapterPageRepository.findByChapterIdOrderByPageNumberAsc(chapterId);
     }
+
+    public Chapter getPreviousChapter(Long comicId, Integer chapterNumber) {
+        return chapterRepository.findTopByComicIdAndChapterNumberLessThanOrderByChapterNumberDesc(comicId, chapterNumber);
+    }
+
+    public Chapter getNextChapter(Long comicId, Integer chapterNumber) {
+        return chapterRepository.findTopByComicIdAndChapterNumberGreaterThanOrderByChapterNumberAsc(comicId, chapterNumber);
+    }
 }

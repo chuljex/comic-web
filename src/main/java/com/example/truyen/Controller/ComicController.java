@@ -28,8 +28,13 @@ public class ComicController {
         Comic comic = comicService.getComicById(id);
         // Lấy danh sách các chương đã được sắp xếp từ mới nhất đến cũ nhất
         List<Chapter> chapters = chapterService.getChaptersByComicId(id);
+
+        // Lấy chương đầu tiên
+        Chapter firstChapter = chapters.isEmpty() ? null : chapters.get(chapters.size() - 1);
+
         model.addAttribute("comic", comic);
         model.addAttribute("chapters", chapters);
+        model.addAttribute("firstChapter", firstChapter);
         return "comic/index";
     }
 
@@ -40,14 +45,19 @@ public class ComicController {
             List<ChapterPage> pages = chapterService.getPagesByChapterId(chapter.getId());
 
             // Tìm chương kế tiếp và chương trước đó
-            Chapter prevChapter = chapterService.getChapterByComicIdAndChapterNumber(comicId, chapterNumber - 1);
-            Chapter nextChapter = chapterService.getChapterByComicIdAndChapterNumber(comicId, chapterNumber + 1);
+            Chapter prevChapter = chapterService.getPreviousChapter(comicId, chapterNumber);
+            Chapter nextChapter = chapterService.getNextChapter(comicId, chapterNumber);
+
+            boolean hasPrevChapter = (prevChapter != null);
+            boolean hasNextChapter = (nextChapter != null);
 
             model.addAttribute("chapter", chapter);
             model.addAttribute("pages", pages);
 
             model.addAttribute("prevChapter", prevChapter);
             model.addAttribute("nextChapter", nextChapter);
+            model.addAttribute("hasPrevChapter", hasPrevChapter);
+            model.addAttribute("hasNextChapter", hasNextChapter);
         }
         return "comic/detail";
     }
