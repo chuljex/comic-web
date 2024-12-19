@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -38,15 +39,15 @@ public class ComicController {
         return "comic/index";
     }
 
-    @GetMapping("/{comicId}/chapter-{chapterNumber}")
-    public String getChapterContent(@PathVariable Long comicId, @PathVariable Integer chapterNumber, Model model) {
-        Chapter chapter = chapterService.getChapterByComicIdAndChapterNumber(comicId, chapterNumber);
+    @GetMapping("/{comicId}/chapter-{chapterId}")
+    public String getChapterContent(@PathVariable Long comicId, @PathVariable Integer chapterId, Model model) {
+        Chapter chapter = chapterService.getChapterByComicIdAndId(comicId, chapterId);
         if (chapter != null) {
             List<ChapterPage> pages = chapterService.getPagesByChapterId(chapter.getId());
 
             // Tìm chương kế tiếp và chương trước đó
-            Chapter prevChapter = chapterService.getPreviousChapter(comicId, chapterNumber);
-            Chapter nextChapter = chapterService.getNextChapter(comicId, chapterNumber);
+            Chapter prevChapter = chapterService.getPreviousChapter(comicId, chapterId);
+            Chapter nextChapter = chapterService.getNextChapter(comicId, chapterId);
 
             boolean hasPrevChapter = (prevChapter != null);
             boolean hasNextChapter = (nextChapter != null);

@@ -33,13 +33,13 @@
                                     <p class="name col-xs-3">
                                         <i class="fa fa-user"></i> Tác giả
                                     </p>
-                                    <p class="col-xs-9" th:text="${comic.author}">Đang Cập Nhật</p>
+                                    <p class="col-xs-9" th:text="${comic.author}">Đang Cập Nhật...</p>
                                 </li>
                                 <li class="status row">
                                     <p class="name col-xs-3">
                                         <i class="fa fa-rss"></i> Tình trạng
                                     </p>
-                                    <p class="col-xs-9">Đang Cập Nhật</p>
+                                    <p class="col-xs-9" th:text="${comic.comicStatus.title}">Đang Cập Nhật...</p>
                                 </li>
                                 <li class="row">
                                     <p class="name col-xs-3">
@@ -95,7 +95,7 @@
                     <div class="works-chapter-list">
                         <div class="works-chapter-item" th:each="chapter : ${chapters}">
                             <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
-                                <a th:href="@{/album/${comic.id}/chaper-{id}(id=${chapter.id})}"
+                                <a th:href="@{/album/{id}/chapter-{chapterId}(chapterId=${chapter.id}, id=${comic.id})}"
                                    th:text="'Chương ' + ${chapter.chapterNumber}">Chapter Title</a>
                             </div>
                             <div class="col-md-2 col-sm-2 col-xs-4 time-chap"

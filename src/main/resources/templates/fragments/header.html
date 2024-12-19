@@ -13,11 +13,14 @@
                 <ul>
                     <li onclick="$('header .top_search').slideDown()" class="other"><i class="fa fa-search"
                                                                                        aria-hidden="true"></i></li>
-                    <li>
-                        <button href="/register">Đăng ký</button>
+                    <li th:if="${displayName != null}">
+                        <span th:text="${displayName}"></span>
                     </li>
-                    <li>
-                        <button onclick="popup('login')">Đăng nhập</button>
+                    <li th:if="${displayName == null}">
+                        <a href="/register">Đăng ký</a>
+                    </li>
+                    <li th:if="${displayName == null}">
+                        <a href="/login">Đăng nhập</a>
                     </li>
                 </ul>
                 <div class="clear"></div>

@@ -5,6 +5,7 @@ import com.example.truyen.Entity.User;
 import com.example.truyen.Service.JwtService;
 import com.example.truyen.Service.UserService;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,13 +30,21 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
     @GetMapping("/login")
-    public String showRegistrationForm(Model model) {
+    public String showRegistrationForm(HttpServletRequest request, Model model) {
+        String token = getCookie(request);
+        if(token != null) {
+            return "redirect:/";
+        }
         model.addAttribute("user", new AuthRequest());
         return "auth/login";
     }
 
     @GetMapping("/register")
-    public String showRegisterForm(Model model) {
+    public String showRegisterForm(HttpServletRequest request, Model model) {
+        String token = getCookie(request);
+        if(token != null) {
+            return "redirect:/";
+        }
         model.addAttribute("user", new User());
         return "auth/register";
     }
@@ -50,6 +59,18 @@ public class AuthController {
     public String addNewUser(@ModelAttribute("user") User userInfo) {
         String message = service.addUser(userInfo);
         return "redirect:/login";
+    }
+
+    public String getCookie(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("token".equals(cookie.getName())) {
+                    return cookie.getValue();
+                }
+            }
+        }
+        return null;
     }
 
     public void setCookie(HttpServletResponse response, @RequestParam String value) {

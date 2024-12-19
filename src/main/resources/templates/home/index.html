@@ -24,7 +24,7 @@
                     <ul class="list_grid grid" id="list_suggest">
                         <li th:each="topComics : ${topComics}">
                             <div class="book_avatar">
-                                <a href="#">
+                                <a th:href="@{/album/{id}(id=${topComics.id})}">
                                     <img class="center"
                                          th:src="${topComics.thumbnail}"
                                          th:alt="${topComics.title}">
@@ -38,7 +38,7 @@
                                 <div class="book_name">
                                     <h3>
                                         <a th:title="${topComics.title}"
-                                           href="#"
+                                           th:href="@{/album/{id}(id=${topComics.id})}"
                                            th:text="${topComics.title}">Tên Truyện</a>
                                     </h3>
                                 </div>
@@ -80,7 +80,7 @@
                     <ul class="list_grid grid" id="list_new">
                         <li th:each="latestComics : ${latestComics}">
                             <div class="book_avatar">
-                                <a href="#">
+                                <a th:href="@{/album/{id}(id=${latestComics.id})}">
                                     <img class="center" th:src="${latestComics.thumbnail}"
                                          th:alt="${latestComics.title}">
                                 </a>
@@ -93,7 +93,7 @@
                                 <div class="book_name qtip" th:data-qtip="@{|#truyen-tranh-${latestComics.id}|}">
                                     <h3>
                                         <a th:title="${latestComics.title}"
-                                           href="#"
+                                           th:href="@{/album/{id}(id=${latestComics.id})}"
                                            th:text="${latestComics.title}">Tên Truyện</a>
                                     </h3>
                                 </div>
