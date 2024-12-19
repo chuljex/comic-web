@@ -20,16 +20,25 @@ public class CategoryService {
             if (data.isEmpty()) {
                 throw new RuntimeException("No data found");
             }
-            
+
             return data;
         } catch (Exception e) {
-            throw new RuntimeException("Error =====: " + e.getMessage());
+            throw new RuntimeException("Error: " + e.getMessage());
         }
     }
 
-    public void getCategoryDetail(Long id) {
-        // Lấy chi tiết một category
-        categoryRepository.findById(id);
+    public Category getCategoryById(Long id) {
+        try {
+            var data = categoryRepository.findById(id);
+
+            if (data.isEmpty()) {
+                throw new RuntimeException("No data found");
+            }
+
+            return data.get();
+        } catch (Exception e) {
+            throw new RuntimeException("Error: " + e.getMessage());
+        }
     }
 
     public void createCategory(Category category) {
@@ -46,5 +55,19 @@ public class CategoryService {
     public void deleteCategory(Long id) {
         // Xóa một category
         categoryRepository.deleteById(id);
+    }
+
+    public List<Category> getCategoriesWithFilters(String status, String country, String sortBy) {
+        try {
+            var data = categoryRepository.findCategoriesWithFilters(status, country, sortBy);
+
+            if (data.isEmpty()) {
+                throw new RuntimeException("No data found");
+            }
+
+            return data;
+        } catch (Exception e) {
+            throw new RuntimeException("Error: " + e.getMessage());
+        }
     }
 }
