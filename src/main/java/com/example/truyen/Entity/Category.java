@@ -14,16 +14,16 @@ import java.time.LocalDateTime;
 
 @Table(name = "categories")
 public class Category {
-    
+
     @Id
     @Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 50, unique = true)
+    @Column(name = "name", nullable = false, length = 50, unique = true)
     private String name;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column(name = "description", columnDefinition = "TEXT", nullable = false)
     private String description;
 
     @Column(name = "created_at", nullable = false, updatable = false)

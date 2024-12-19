@@ -14,9 +14,17 @@ public class CategoryService {
     private CategoryRepository categoryRepository;
 
     public List<Category> getAllCategory() {
-        // Lấy danh sách tất cả các category
-        var data = categoryRepository.findAll();
-        return data;
+        try {
+            var data = categoryRepository.findAll();
+
+            if (data.isEmpty()) {
+                throw new RuntimeException("No data found");
+            }
+            
+            return data;
+        } catch (Exception e) {
+            throw new RuntimeException("Error =====: " + e.getMessage());
+        }
     }
 
     public void getCategoryDetail(Long id) {
