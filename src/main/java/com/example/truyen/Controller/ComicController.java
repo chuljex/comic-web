@@ -39,7 +39,7 @@ public class ComicController {
         return "comic/index";
     }
 
-    @GetMapping("/{comicId}/chapter-{chapterId}")
+    @GetMapping("/{comicId}/{chapterId}")
     public String getChapterContent(@PathVariable Long comicId, @PathVariable Integer chapterId, Model model) {
         Chapter chapter = chapterService.getChapterByComicIdAndId(comicId, chapterId);
         if (chapter != null) {
@@ -54,6 +54,7 @@ public class ComicController {
 
             model.addAttribute("chapter", chapter);
             model.addAttribute("pages", pages);
+            model.addAttribute("comicId", comicId);
 
             model.addAttribute("prevChapter", prevChapter);
             model.addAttribute("nextChapter", nextChapter);

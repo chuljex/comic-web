@@ -21,12 +21,13 @@ public class GlobalControllerAdvice {
     public void addAttributes(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated() && !(authentication.getPrincipal() instanceof String)) {
-            Optional<User> displayName = userRepository.findByUsername(authentication.getName());
-            String displayNameText = null;
-            if (displayName.isPresent()) {
-                displayNameText = displayName.get().getDisplayName();
+            Optional<User> userOptional = userRepository.findByUsername(authentication.getName());
+
+            if (userOptional.isPresent()) {
+                User user = userOptional.get();
+                model.addAttribute("displayName", user.getDisplayName());
+                model.addAttribute("email", user.getEmail()); // Thêm email vào Model
             }
-            model.addAttribute("displayName", displayNameText);
         }
     }
 }

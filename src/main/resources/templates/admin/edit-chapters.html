@@ -43,7 +43,7 @@
                                         <tr th:each="chapter, stat : ${chapters}">
                                             <td th:text="${stat.index + 1}"></td>
                                             <td>
-                                                <a th:href="@{/chapter/images/{chapterId}(chapterId=${chapter.id})}"
+                                                <a th:href="@{/album/{comicId}/{chapterId}(comicId=${comicId}, chapterId=${chapter.id})}"
                                                    th:text="'Chương ' + ${chapter.chapterNumber} + ': ' + ${chapter.title}">
                                                 </a>
                                             </td>
