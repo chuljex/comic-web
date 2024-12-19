@@ -33,7 +33,7 @@
                                                 <div class="comic-info">
                                                     <span class="comic-author" th:text="'Tác giả: ' + ${comic.author}"></span>
                                                 </div>
-                                                <a th:href="@{/comics/{id}(id=${comic.id})}" class="comic-btn">Chỉnh sửa chương</a>
+                                                <a th:href="@{/contributor/comic/edit/{id}(id=${comic.id})}" class="comic-btn">Chỉnh sửa chương</a>
                                             </div>
                                         </div>
                                     </div>

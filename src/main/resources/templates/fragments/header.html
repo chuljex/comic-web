@@ -13,8 +13,20 @@
                 <ul>
                     <li onclick="$('header .top_search').slideDown()" class="other"><i class="fa fa-search"
                                                                                        aria-hidden="true"></i></li>
-                    <li th:if="${displayName != null}">
-                        <span th:text="${displayName}"></span>
+                    <li class="profile" th:if="${displayName != null}">
+                        <div onclick="show_hidden_div('member_control');" class="member_profile">
+                            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" th:alt="${displayName}">
+                            <div class="clear"></div>
+                        </div>
+                        <div target="member_control" id="member_control" class="hidden_div" style="display: none;">
+                            <ul>
+                                <li><a rel="nofollow" href="/admin/adminProfile">Thông
+                                    tin</a></li>
+                                <li><a rel="nofollow" href="/logout">Đăng xuất</a></li>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                    </li>
                     </li>
                     <li th:if="${displayName == null}">
                         <a href="/register">Đăng ký</a>

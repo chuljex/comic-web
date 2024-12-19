@@ -719,7 +719,7 @@ button:focus {
     display: inline-block;
 }
 .logo a p{
-    background: url(../images/logo.png) no-repeat;
+    background: url(https://st.truyenqqto.com/template/frontend/images/logo.png) no-repeat;
     width: 146px;
     height: 34px;
     display: block;
@@ -4475,4 +4475,12 @@ button.close {
 }
 .btn-delete:hover {
     background-color: #c82333;
+}
+body header .top .right ul li .hidden_div ul li a {
+    background: none;
+    border: 0;
+    color: #000;
+    box-shadow: none;
+    line-height: 35px;
+    font-size: 15px;
 }

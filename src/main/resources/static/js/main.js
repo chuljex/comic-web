@@ -46,3 +46,11 @@ function scroll_div(target){
     }
     $('#list_suggest').css('margin-left',div_suggest_margin+'px');
 }
+function show_hidden_div(target){
+    if($(".hidden_div[target="+target+"]").css("display") == "none"){
+        $(".hidden_div").hide();
+        $(".hidden_div[target="+target+"]").show();
+    }else{
+        $(".hidden_div").hide();
+    }
+}

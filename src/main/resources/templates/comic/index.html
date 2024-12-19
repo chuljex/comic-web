@@ -72,16 +72,10 @@
                         <ul class="story-detail-menu">
                             <li class="li01">
                                 <a th:if="${firstChapter != null}"
-                                   th:href="@{/album/{comicId}/chapter-{chapterNumber}(comicId=${firstChapter.comic.id}, chapterNumber=${firstChapter.chapterNumber})}"><i
-                                        class="fa fa-book"></i> Đọc từ
-                                    đầu</a>
+                                   th:href="@{/album/{comicId}/{chapterId}(comicId=${firstChapter.comic.id}, chapterId=${firstChapter.id})}">
+                                    <i class="fa fa-book"></i> Đọc từ đầu
+                                </a>
                             </li>
-                            <li class="li02"><a href="javascript:void(0);"
-                                                class="button is-danger is-rounded btn-subscribe subscribeBook"
-                                                data-page="index" data-id="16698"><span class="fa fa-heart"></span> Theo
-                                dõi</a></li>
-                            <li class="li03"><a href="javascript:void(0);" class="button is-danger is-rounded btn-like"
-                                                data-id="16698"><i class="fa fa-thumbs-up"></i> Thích</a></li>
                         </ul>
                     </div>
                     <div class="clear"></div>
@@ -95,7 +89,7 @@
                     <div class="works-chapter-list">
                         <div class="works-chapter-item" th:each="chapter : ${chapters}">
                             <div class="col-md-10 col-sm-10 col-xs-8 name-chap">
-                                <a th:href="@{/album/{id}/chapter-{chapterId}(chapterId=${chapter.id}, id=${comic.id})}"
+                                <a th:href="@{/album/{id}/{chapterId}(chapterId=${chapter.id}, id=${comic.id})}"
                                    th:text="'Chương ' + ${chapter.chapterNumber}">Chapter Title</a>
                             </div>
                             <div class="col-md-2 col-sm-2 col-xs-4 time-chap"
