@@ -35,4 +35,8 @@ public class ComicService {
     public List<Comic> getAllComics() {
         return comicRepository.findAll();
     }
+
+    public List<Comic> filterComics(Long categoryId, Integer status, Integer country) {
+        return comicRepository.findByFilters(categoryId, status, country);
+    }
 }
