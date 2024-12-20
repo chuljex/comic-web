@@ -39,4 +39,8 @@ public class ComicService {
     public List<Comic> searchComics(String query) {
         return comicRepository.findByTitleContainingIgnoreCase(query);
     }
+  
+    public List<Comic> filterComics(Long categoryId, Integer status, Integer country) {
+        return comicRepository.findByFilters(categoryId, status, country);
+    }
 }
