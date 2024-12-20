@@ -74,33 +74,6 @@
                                 </ul>
                             </td>
                         </tr>
-                        <tr>
-                            <th>Sắp xếp</th>
-                            <td>
-                                <div class="select is-warning">
-                                    <select id="category-sort">
-                                        <option value="/the-loai/action-26.html?sort=0">
-                                            Ngày đăng giảm dần
-                                        </option>
-                                        <option value="/the-loai/action-26.html?sort=1">
-                                            Ngày đăng tăng dần
-                                        </option>
-                                        <option value="/the-loai/action-26.html?sort=2">
-                                            Ngày cập nhật giảm dần
-                                        </option>
-                                        <option value="/the-loai/action-26.html?sort=3">
-                                            Ngày cập nhật tăng dần
-                                        </option>
-                                        <option value="/the-loai/action-26.html?sort=4">
-                                            Lượt xem giảm dần
-                                        </option>
-                                        <option value="/the-loai/action-26.html?sort=5">
-                                            Lượt xem tăng dần
-                                        </option>
-                                    </select>
-                                </div>
-                            </td>
-                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -108,122 +81,59 @@
                     <ul class="list_grid grid">
                         <li th:each="comics : ${comics}">
                             <div class="book_avatar">
-                                <a href="/truyen-tranh/troc-dao-nhan-16849"
+                                <a th:href="@{/album/{id}(id=${comics.id})}"
                                 ><img
                                         class="center"
                                         th:src="@{${comics.thumbnail}}"
                                         alt="Tróc Đao Nhân"
                                 /></a>
+                                <div class="top-notice">
+                                    <span class="time-ago" th:text="${timeAgoMap[comics.id]}">Ngày đăng</span>
+                                    <span class="type-label hot" th:if="${comics.views > 10000}">Hot</span>
+                                </div>
                             </div>
                             <div class="book_info">
                                 <div class="book_name qtip" data-qtip="#truyen-tranh-16849">
                                     <h3>
                                         <a
-                                                title="Tróc Đao Nhân"
-                                                href="/truyen-tranh/troc-dao-nhan-16849"
-                                                th:href="@{/comics/{id}(id=${comics.id})}"
+                                                th:href="@{/album/{id}(id=${comics.id})}"
                                                 th:text="${comics.title}"
-                                        >Tróc Đao Nhân</a
+                                        ></a
                                         >
                                     </h3>
                                 </div>
                                 <div class="clear"></div>
-                                <div class="text_detail">
-                                    <span> <i class="fa fa-bookmark"></i> 94 </span>
-                                    <span> <i class="fa fa-eye"></i>11,104 </span>
-                                </div>
+                                <!--                                <div class="text_detail">-->
+                                <!--                                    <span> <i class="fa fa-bookmark"></i> 94 </span>-->
+                                <!--                                    <span> <i class="fa fa-eye"></i>11,104 </span>-->
+                                <!--                                </div>-->
                                 <div class="last_chapter">
-                                    <a
-                                            href="/truyen-tranh/troc-dao-nhan-16849-chap-60.html"
-                                            title="Chapter 60"
-                                    >Chapter 60</a
-                                    >
+                                    <span th:if="${latestChapters[comics.id] != null}"
+                                          th:text="'Chapter ' + ${latestChapters[comics.id].chapterNumber}"></span>
+                                    <span th:if="${latestChapters[comics.id] == null}">Chưa cập nhật</span>
                                 </div>
-                                <div
-                                        class="more-info"
-                                        id="truyen-tranh-16849"
-                                        style="display: none"
-                                >
-                                    <div class="title-more" th:text="comics.title"></div>
-                                    <!--                                    <div class="title-more-other">-->
-                                    <!--                                        Tên khác: Tróc Đao Nhân-->
-                                    <!--                                    </div>-->
-                                    <!--                                    <p class="info">Tình trạng: Đang Cập Nhật</p>-->
-                                    <!--                                    <p class="info">Lượt xem: 11,104</p>-->
-                                    <!--                                    <p class="info">Lượt theo dõi: 94</p>-->
-                                    <!--                                    <div class="list-tags">-->
-                                    <!--                                        <p class="blue">Action</p>-->
-                                    <!--                                        <p class="blue">Fantasy</p>-->
-                                    <!--                                        <p class="blue">Manhua</p>-->
-                                    <!--                                        <p class="blue">Sci-Fi</p>-->
-                                    <!--                                    </div>-->
-                                    <!--                                    <div class="excerpt"></div>-->
-                                </div>
+                                <!--                                <div-->
+                                <!--                                        class="more-info"-->
+                                <!--                                        id="truyen-tranh-16849"-->
+                                <!--                                        style="display: none"-->
+                                <!--                                >-->
+                                <!--                                    <div class="title-more" th:text="comics.title"></div>-->
+                                <!--                                    <div class="title-more-other">-->
+                                <!--                                        Tên khác: Tróc Đao Nhân-->
+                                <!--                                    </div>-->
+                                <!--                                    <p class="info">Tình trạng: Đang Cập Nhật</p>-->
+                                <!--                                    <p class="info">Lượt xem: 11,104</p>-->
+                                <!--                                    <p class="info">Lượt theo dõi: 94</p>-->
+                                <!--                                    <div class="list-tags">-->
+                                <!--                                        <p class="blue">Action</p>-->
+                                <!--                                        <p class="blue">Fantasy</p>-->
+                                <!--                                        <p class="blue">Manhua</p>-->
+                                <!--                                        <p class="blue">Sci-Fi</p>-->
+                                <!--                                    </div>-->
+                                <!--                                    <div class="excerpt"></div>-->
+                                <!--                                </div>-->
                             </div>
 
-                            <div class="clear"></div>
-                        </li>
-
-                        <li>
-                            <div class="book_avatar">
-                                <a
-                                        href="/truyen-tranh/su-tro-lai-cua-quy-vuong-cap-sss-16618"
-                                ><img
-                                        class="center"
-                                        src="https://img.truyenvua.com/temp/14-11-2024/su-tro-lai-cua-quy-vuong-cap-sss_1731557923.jpg?gt=hdfgdfg&amp;mobile=2"
-                                        alt="Sự Trở Lại Của Quỷ Vương Cấp Sss"
-                                /></a>
-
-                                <div class="top-notice">
-                                    <span class="time-ago">1 Tháng Trước</span>
-                                </div>
-                            </div>
-                            <div class="book_info">
-                                <div class="book_name qtip" data-qtip="#truyen-tranh-16618">
-                                    <h3>
-                                        <a
-                                                title="Sự Trở Lại Của Quỷ Vương Cấp Sss"
-                                                href="/truyen-tranh/su-tro-lai-cua-quy-vuong-cap-sss-16618"
-                                        >Sự Trở Lại Của Quỷ Vương Cấp Sss</a
-                                        >
-                                    </h3>
-                                </div>
-                                <div class="clear"></div>
-                                <div class="text_detail">
-                                    <span> <i class="fa fa-bookmark"></i> 517 </span>
-                                    <span> <i class="fa fa-eye"></i>57,927 </span>
-                                </div>
-                                <div class="last_chapter">
-                                    <a
-                                            href="/truyen-tranh/su-tro-lai-cua-quy-vuong-cap-sss-16618-chap-26.html"
-                                            title="Chapter 26"
-                                    >Chapter 26</a
-                                    >
-                                </div>
-                                <div
-                                        class="more-info"
-                                        id="truyen-tranh-16618"
-                                        style="display: none"
-                                >
-                                    <div class="title-more">
-                                        Sự Trở Lại Của Quỷ Vương Cấp Sss
-                                    </div>
-                                    <p class="info">Tình trạng: Đang Cập Nhật</p>
-                                    <p class="info">Lượt xem: 57,927</p>
-                                    <p class="info">Lượt theo dõi: 517</p>
-                                    <div class="list-tags">
-                                        <p class="blue">Action</p>
-                                        <p class="blue">Manhwa</p>
-                                        <p class="blue">Truyện Màu</p>
-                                    </div>
-                                    <div class="excerpt">
-                                        Một người đàn ông rơi vào quỷ giới, trở về Trái đất với
-                                        tư cách là Quỷ VươngTuy nhiên, điều đang chờ đợi anh lại
-                                        là những con quái vật bí ẩn!Mùi máu thấm vào không khí:
-                                        “Cuối cùng ta đã trở lại.”
-                                    </div>
-                                </div>
-                            </div>
                             <div class="clear"></div>
                         </li>
                     </ul>
