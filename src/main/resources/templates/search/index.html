@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tìm kiếm truyện</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+</head>
+<body>
+<th:block th:replace="fragments/header :: header"></th:block>
+<div class="content">
+    <div class="div_middle">
+        <div class="alert-note-fix"></div>
+        <div class="main_content">
+            <div id="main_homepage">
+                <div class="homepage_tags">
+                    <h1>
+                        <p class="text_list_update">
+                            <i class="fa fa-font-awesome" aria-hidden="true"></i> Kết quả tìm kiếm
+                        </p>
+                    </h1>
+                    <div class="clear"></div>
+                </div>
+                <div th:if="${searchResults.isEmpty()}">
+                    <p>Không tìm thấy kết quả nào cho từ khóa "<span th:text="${query}"></span>".</p>
+                </div>
+                <div class="list_grid_out">
+                    <ul class="list_grid grid">
+                        <li th:each="comic : ${searchResults}">
+                            <div class="book_avatar">
+                                <a th:href="@{/album/${comic.id}}"><img
+                                        class="center"
+                                        th:src="${comic.thumbnail}"
+                                        th:alt="${comic.title}">
+                                </a>
+                                <div class="top-notice">
+                                    <span class="time-ago" th:text="${timeAgoMap[comic.id]}"></span>
+                                </div>
+                            </div>
+                            <div class="book_info">
+                                <div class="book_name qtip" th:data-qtip="@{|#truyen-tranh-${comic.id}|}">
+                                    <h3>
+                                        <a th:title="${comic.title}"
+                                           th:href="@{/album/{id}(id=${comic.id})}"
+                                           th:text="${comic.title}">Tên Truyện</a>
+                                    </h3>
+                                </div>
+                                <div class="clear"></div>
+                                <div class="last_chapter">
+                                        <span th:if="${latestChapters[comic.id] != null}"
+                                              th:text="'Chapter ' + ${latestChapters[comic.id].chapterNumber}"></span>
+                                    <span th:if="${latestChapters[comic.id] == null}">Chưa cập nhật</span>
+                                </div>
+                                <div class="more-info" th:id="@{|truyen-tranh-${comic.id}|}"
+                                     style="display:none;">
+                                    <div class="title-more" th:text="${comic.title}">Tên truyện</div>
+                                    <p class="info">Tình trạng: Đang Cập Nhật</p>
+                                    <p class="info"
+                                       th:text="'Lượt xem: ' + (${comic.views != null ? T(java.lang.String).format('%,d', comic.views) : '0'})">
+                                        Lượt xem</p>
+                                    <div class="list-tags">
+
+                                    </div>
+                                    <div class="excerpt" th:text="${comic.description}">Mô tả</div>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<th:block th:replace="fragments/footer :: footer"></th:block>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

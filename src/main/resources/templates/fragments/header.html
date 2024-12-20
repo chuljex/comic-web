@@ -38,13 +38,12 @@
                 <div class="clear"></div>
             </div>
             <div class="top_search">
-                <input class="search" id="search_input" placeholder="Bạn muốn tìm truyện gì">
-                <button>
-                    <i class="fa fa-search" aria-hidden="true"></i>
-                </button>
-                <div class="search_result">
-                    <ul></ul>
-                </div>
+                <form th:action="@{/search}" method="get">
+                    <input class="search" id="search_input" name="query" placeholder="Bạn muốn tìm truyện gì">
+                    <button>
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                </form>
             </div>
             <div class="clear"></div>
         </div>
