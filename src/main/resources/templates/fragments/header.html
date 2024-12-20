@@ -51,14 +51,9 @@
     <div class="bottom">
         <div class="div_middle">
             <ul id="header_left_menu">
-                <li class="menu_hidden">
-                    <a class="tags_name pc_hover" href="/">
-                        Trang chủ
-                    </a>
-                </li>
-                <li class="menu_hidden" th:each="category : ${category}">
-                    <a class="tags_name pc_hover" th:href="@{/category/{id}(id=${category.id})}"
-                       th:text="${category.name}">
+                <li class="menu_hidden" th:each="categories : ${categories}">
+                    <a class="tags_name pc_hover" th:href="@{/category/{id}(id=${categories.id})}"
+                       th:text="${categories.name}">
                     </a>
                 </li>
 
