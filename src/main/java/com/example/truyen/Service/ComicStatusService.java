@@ -13,8 +13,16 @@ public class ComicStatusService {
     private ComicStatusRepository comicStatusRepository;
 
     public List<ComicStatus> getAllComicStatus() {
-        // Lấy danh sách tất cả các status
-        var data = comicStatusRepository.findAll();
-        return data;
+        try {
+            var data = comicStatusRepository.findAll();
+
+            if (data.isEmpty()) {
+                throw new RuntimeException("No data found");
+            }
+
+            return data;
+        } catch (Exception e) {
+            throw new RuntimeException("Error: " + e.getMessage());
+        }
     }
 }

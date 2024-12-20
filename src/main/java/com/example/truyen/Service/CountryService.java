@@ -14,9 +14,17 @@ public class CountryService {
     private CountryRepository countryRepository;
 
     public List<Country> getAllCountry() {
-        // Lấy danh sách tất cả các country
-        var data = countryRepository.findAll();
-        return data;
+        try {
+            var data = countryRepository.findAll();
+
+            if (data.isEmpty()) {
+                throw new RuntimeException("No data found");
+            }
+
+            return data;
+        } catch (Exception e) {
+            throw new RuntimeException("Error: " + e.getMessage());
+        }
     }
 
     public Optional<Country> getCountryById(Long id) {
