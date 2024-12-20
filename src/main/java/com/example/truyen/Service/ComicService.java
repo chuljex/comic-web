@@ -35,4 +35,8 @@ public class ComicService {
     public List<Comic> getAllComics() {
         return comicRepository.findAll();
     }
+
+    public List<Comic> searchComics(String query) {
+        return comicRepository.findByTitleContainingIgnoreCase(query);
+    }
 }

@@ -43,31 +43,13 @@
                                 </li>
                                 <li class="row">
                                     <p class="name col-xs-3">
-                                        <i class="fa fa-thumbs-up"></i> Lượt thích
-                                    </p>
-                                    <p class="col-xs-9 number-like">12</p>
-                                </li>
-                                <li class="row">
-                                    <p class="name col-xs-3">
-                                        <i class="fa fa-heart"></i> Lượt theo dõi
-                                    </p>
-                                    <p class="col-xs-9">127</p>
-                                </li>
-                                <li class="row">
-                                    <p class="name col-xs-3">
                                         <i class="fa fa-eye"></i> Lượt xem
                                     </p>
-                                    <p class="col-xs-9">15,633</p>
+                                    <p class="col-xs-9" th:text="(${comic.views != null ? T(java.lang.String).format('%,d', comic.views) : '0'})">0</p>
                                 </li>
 
                             </ul>
                         </div>
-
-                        <ul class="list01">
-                            <li class="li03"><a href="/the-loai/manhua-35.html">Manhua</a></li>
-                            <li class="li03"><a href="/the-loai/romance-36.html">Romance</a></li>
-                            <li class="li03"><a href="/the-loai/truyen-mau-92.html">Truyện Màu</a></li>
-                        </ul>
                         <div class="clear"></div>
                         <ul class="story-detail-menu">
                             <li class="li01">

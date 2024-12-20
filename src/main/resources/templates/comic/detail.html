@@ -31,14 +31,14 @@
 
                             <div class="d-flex align-items-center justify-content-center">
                                 <a th:if="${hasPrevChapter}"
-                                   th:href="@{/album/{comicId}/chapter-{chapterId}(comicId=${chapter.comic.id}, chapterId=${prevChapter.id})}"
+                                   th:href="@{/album/{comicId}/{chapterId}(comicId=${chapter.comic.id}, chapterId=${prevChapter.id})}"
                                    th:class="'btn btn-info go-btn prev text-white m-1 d-block'"><em
                                         class="fa fa-arrow-left"></em> Chap trước</a>
                                 <a th:if="${!hasPrevChapter}" th:onclick="'alert(\'Hết Chương Rồi Bạn Ơi!!!\')'"
                                    th:class="'btn btn-info go-btn prev text-white m-1 d-none'"><em
                                         class="fa fa-arrow-left"></em> Chap trước</a>
                                 <a th:if="${hasNextChapter}"
-                                   th:href="@{/album/{comicId}/chapter-{chapterId}(comicId=${chapter.comic.id}, chapterId=${nextChapter.id})}"
+                                   th:href="@{/album/{comicId}/{chapterId}(comicId=${chapter.comic.id}, chapterId=${nextChapter.id})}"
                                    th:class="'btn btn-info go-btn next text-white m-1 d-block'">Chap sau <em
                                         class="fa fa-arrow-right"></em></a>
                                 <a th:if="${!hasNextChapter}" th:onclick="'alert(\'Hết Chương Rồi Bạn Ơi!!!\')'"
@@ -61,14 +61,14 @@
                         <div class="chapter-control" style="z-index: 9999">
                             <div class="d-flex align-items-center justify-content-center">
                                 <a th:if="${hasPrevChapter}"
-                                   th:href="@{/album/{comicId}/chapter-{chapterNumber}(comicId=${chapter.comic.id}, chapterNumber=${prevChapter.chapterNumber})}"
+                                   th:href="@{/album/{comicId}/{chapterId}(comicId=${chapter.comic.id}, chapterId=${prevChapter.id})}"
                                    th:class="'btn btn-info go-btn prev text-white m-1 d-block'"><em
                                         class="fa fa-arrow-left"></em> Chap trước</a>
                                 <a th:if="${!hasPrevChapter}" th:onclick="'alert(\'Hết Chương Rồi Bạn Ơi!!!\')'"
                                    th:class="'btn btn-info go-btn prev text-white m-1 d-none'"><em
                                         class="fa fa-arrow-left"></em> Chap trước</a>
                                 <a th:if="${hasNextChapter}"
-                                   th:href="@{/album/{comicId}/chapter-{chapterNumber}(comicId=${chapter.comic.id}, chapterNumber=${nextChapter.chapterNumber})}"
+                                   th:href="@{/album/{comicId}/{chapterId}(comicId=${chapter.comic.id}, chapterId=${nextChapter.id})}"
                                    th:class="'btn btn-info go-btn next text-white m-1 d-block'">Chap sau <em
                                         class="fa fa-arrow-right"></em></a>
                                 <a th:if="${!hasNextChapter}" th:onclick="'alert(\'Hết Chương Rồi Bạn Ơi!!!\')'"

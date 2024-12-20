@@ -11,5 +11,7 @@ import java.util.Optional;
 public interface ComicRepository extends JpaRepository<Comic, Long> {
     List<Comic> findByViewsGreaterThanOrderByViewsDesc(int views);
 
+    List<Comic> findByTitleContainingIgnoreCase(String title);
+
     Optional<Comic> findById(Long id);
 }
