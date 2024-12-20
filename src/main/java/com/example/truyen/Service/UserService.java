@@ -1,5 +1,6 @@
 package com.example.truyen.Service;
 
+import com.example.truyen.DTO.RegisterFormDto;
 import com.example.truyen.Entity.AccountStatus;
 import com.example.truyen.Entity.Role;
 import com.example.truyen.Entity.User;
@@ -32,21 +33,30 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
     }
 
-    public String addUser(User userInfo) {
+    public User addUser(RegisterFormDto userInfo) throws Exception {
+        if (!userInfo.isPasswordMatching()) {
+            throw new Exception("Mật khẩu và xác nhận mật khẩu không khớp");
+        }
         // Encode password before saving the user
         userInfo.setPassword(encoder.encode(userInfo.getPassword()));
 
+        User user = new User();
+
+        user.setUsername(userInfo.getUsername());
+        user.setPassword(userInfo.getPassword());
+        user.setEmail(userInfo.getEmail());
+        user.setDisplayName(userInfo.getDisplayName());
+
         ZoneId zone = ZoneId.of("Asia/Ho_Chi_Minh");
         LocalDateTime currentDateAndTime = LocalDateTime.now(zone);
-        userInfo.setCreatedAt(currentDateAndTime);
-        userInfo.setUpdatedAt(currentDateAndTime);
+        user.setCreatedAt(currentDateAndTime);
+        user.setUpdatedAt(currentDateAndTime);
 
         Role role = new Role(3L, null);
         AccountStatus accountStatus = new AccountStatus(1L, null, 0);
-        userInfo.setRole(role);
-        userInfo.setUserStatus(accountStatus);
+        user.setRole(role);
+        user.setUserStatus(accountStatus);
 
-        userRepository.save(userInfo);
-        return "User Added Successfully";
+        return userRepository.save(user);
     }
 }

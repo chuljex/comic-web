@@ -1,5 +1,6 @@
 package com.example.truyen.Controller;
 
+import com.example.truyen.DTO.RegisterFormDto;
 import com.example.truyen.Entity.AuthRequest;
 import com.example.truyen.Entity.User;
 import com.example.truyen.Service.JwtService;
@@ -7,6 +8,7 @@ import com.example.truyen.Service.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -45,7 +48,7 @@ public class AuthController {
         if(token != null) {
             return "redirect:/";
         }
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new RegisterFormDto());
         return "auth/register";
     }
 
@@ -56,9 +59,20 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String addNewUser(@ModelAttribute("user") User userInfo) {
-        String message = service.addUser(userInfo);
-        return "redirect:/login";
+    public String addNewUser(@ModelAttribute("user") @Valid RegisterFormDto userInfo,
+                             BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "/auth/register";
+        }
+        try {
+            User user = service.addUser(userInfo);
+            model.addAttribute("successMessage", "Đăng ký thành công");
+            return "/auth/login";
+        }
+        catch (Exception e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "/auth/register";
+        }
     }
 
     public String getCookie(HttpServletRequest request) {
@@ -82,17 +96,19 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String authenticateAndGetToken(@ModelAttribute("user") AuthRequest authRequest, HttpServletResponse response) {
+    public String authenticateAndGetToken(@ModelAttribute("user") AuthRequest authRequest, HttpServletResponse response, Model model) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
         );
+        System.out.print("test22");
         if (authentication.isAuthenticated()) {
             String token = jwtService.generateToken(authRequest.getUsername());
             setCookie(response, token);
-            System.out.print("success");
             return "redirect:/";
         } else {
-            throw new UsernameNotFoundException("Invalid user request!");
+            System.out.print("test");
+            model.addAttribute("errorMessage", "Sai tên đăng nhập hoặc mật khẩu");
+            return "auth/login";
         }
     }
 }
