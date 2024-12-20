@@ -1,6 +1,8 @@
 package com.example.truyen.Controller;
 
+import com.example.truyen.Entity.Category;
 import com.example.truyen.Entity.User;
+import com.example.truyen.Repository.CategoryRepository;
 import com.example.truyen.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -9,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.util.List;
 import java.util.Optional;
 
 @ControllerAdvice
@@ -16,6 +19,9 @@ public class GlobalControllerAdvice {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @ModelAttribute
     public void addAttributes(Model model) {
@@ -27,8 +33,12 @@ public class GlobalControllerAdvice {
                 User user = userOptional.get();
                 model.addAttribute("displayName", user.getDisplayName());
                 model.addAttribute("email", user.getEmail()); // Thêm email vào Model
+
             }
         }
+
+        List<Category> categories = categoryRepository.findAll();
+        model.addAttribute("categories", categories);
     }
 }
 
