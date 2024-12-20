@@ -62,10 +62,8 @@ public class CategoryController {
             @RequestParam(required = false) Integer country,
             Model model) {
 
-        // Gọi service để lấy dữ liệu filter
         List<Comic> comics = comicService.filterComics(categoryId, status, country);
 
-        // Đưa dữ liệu vào model để Thymeleaf xử lý
         model.addAttribute("comics", comics);
         model.addAttribute("categoryId", categoryId);
         model.addAttribute("status", status);
